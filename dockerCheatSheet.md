@@ -1,8 +1,8 @@
 # Docker Cheat Sheet
 
-These are some docker commands that I have found useful as I am creating my docker image for development. 
+These are some docker commands that I have found useful as I am creating my docker image for development.
 
-
+The way that I create the Docker container for elasticsearch will need to use `systemctl` and some other commands that you need systemd for, so I made a
 
 Run the docker container with systemd enabled
 
@@ -26,6 +26,14 @@ Save a current docker image to a tar ball that can be used by others:
 Load in said tar ball from above onto your local machine:
 
 `docker load --input latestversion-1.0.0.tar`
+
+
+Use these commands to get some simple net tools in the centos docker
+```
+yum install -y net-tools
+
+yum install -y iproute
+``
 
 
 My installation script:
@@ -106,6 +114,10 @@ server {
     }
 }
 EOF
+
+mkdir /etc/nginx/ssl
+
+ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt
 
  systemctl start nginx
  systemctl enable nginx
