@@ -1,14 +1,28 @@
-# Docker Cheat Sheet
+# Docker and Scrutiny
+
+## How is Docker being used in this project?
+
+I am using Docker as a quick and easy way for me to setup ELK stack instances so that I can
+test my library easily. You don't have to use Docker to use this library, but it is a great
+starting point for a lot of projects if you want to test out your settings locally or
+without spending money on server instances.
+
+## Docker Compose
+
+[Docker composer] (https://docs.docker.com/compose/) is a tool to running multi-container Docker
+apps, which works pretty well with Elasticsearch, Logstash, and Kibana. Basically, it is a quick and easy way to have docker containers interface with one another so you can separate the functionality of your app. I am using [this](https://github.com/deviantony/docker-elk) setup by deviantony as a starting point.
+
+While you don't have to use compose, and you could set up the whole stack into one container, I didn't want to do that because I found this to be a bit more flexible.
+
 
 These are some docker commands that I have found useful as I am creating my docker image for development.
-
-The way that I create the Docker container for elasticsearch will need to use `systemctl` and some other commands that you need systemd for, so I made a
+The way that I create the Docker container for Elasticsearch will need to use `systemctl` and some other commands that you need systemd for, so I made a
 
 Run the docker container with systemd enabled
 
 `docker run -itd --privileged --name=yourName local/c7-systemd`
 
-Attatch the the shell of the running docker container
+Attach the shell of the running docker container
 
 `docker exec -i -t loving_heisenberg /bin/bash #by Name`
 
@@ -33,10 +47,11 @@ Use these commands to get some simple net tools in the centos docker
 yum install -y net-tools
 
 yum install -y iproute
-``
+```
 
 
 My installation script:
+
 ```
 ##################################### Install Java ##################################
 yum install wget -y
