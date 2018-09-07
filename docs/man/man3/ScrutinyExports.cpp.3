@@ -1,0 +1,52 @@
+.TH "ScrutinyExports.cpp" 3 "Fri Sep 7 2018" "Version 0.01" "Scrutiny" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ScrutinyExports.cpp
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'stdafx\&.h'\fP
+.br
+\fC#include 'ScurintyExports\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBScrutiny\fP * \fBCreateScrutiny\fP ()"
+.br
+.RI "Implementatoin of all exported functions\&. This has to be done because of how Unity is working with their DLL import stuff\&. "
+.ti -1c
+.RI "void \fBDestroyScrutiny\fP (\fBScrutiny\fP *Impl)"
+.br
+.ti -1c
+.RI "float \fBTestMultiply\fP (\fBScrutiny\fP *Impl, float a, float b)"
+.br
+.ti -1c
+.RI "int \fBTestRequest\fP (\fBScrutiny\fP *Impl)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "\fBScrutiny\fP* CreateScrutiny ()"
+
+.PP
+Implementatoin of all exported functions\&. This has to be done because of how Unity is working with their DLL import stuff\&. 
+.PP
+\fBAuthor:\fP
+.RS 4
+Ben Hoffman 
+.RE
+.PP
+
+.SS "void DestroyScrutiny (\fBScrutiny\fP * Impl)"
+
+.SS "float TestMultiply (\fBScrutiny\fP * Impl, float a, float b)"
+
+.SS "int TestRequest (\fBScrutiny\fP * Impl)"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Scrutiny from the source code\&.

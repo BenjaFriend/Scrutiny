@@ -1,0 +1,71 @@
+.TH "ScurintyExports.h" 3 "Fri Sep 7 2018" "Version 0.01" "Scrutiny" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ScurintyExports.h
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'Scrutiny\&.h'\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBSCRUTINYDLL_API\fP   __declspec(dllimport)"
+.br
+.RI "Declare the functoins that we need to export for the DLL We need to do this for Unity to use it sucesfully\&. "
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSCRUTINYDLL_API\fP \fBScrutiny\fP * \fBCreateScrutiny\fP ()"
+.br
+.RI "Implementatoin of all exported functions\&. This has to be done because of how Unity is working with their DLL import stuff\&. "
+.ti -1c
+.RI "\fBSCRUTINYDLL_API\fP void \fBDestroyScrutiny\fP (\fBScrutiny\fP *Impl)"
+.br
+.ti -1c
+.RI "\fBSCRUTINYDLL_API\fP float \fBTestMultiply\fP (\fBScrutiny\fP *Impl, float a, float b)"
+.br
+.ti -1c
+.RI "\fBSCRUTINYDLL_API\fP int \fBTestRequest\fP (\fBScrutiny\fP *Impl)"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define SCRUTINYDLL_API   __declspec(dllimport)"
+
+.PP
+Declare the functoins that we need to export for the DLL We need to do this for Unity to use it sucesfully\&. 
+.PP
+\fBAuthor:\fP
+.RS 4
+Ben Hoffman 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "\fBSCRUTINYDLL_API\fP \fBScrutiny\fP* CreateScrutiny ()"
+
+.PP
+Implementatoin of all exported functions\&. This has to be done because of how Unity is working with their DLL import stuff\&. 
+.PP
+\fBAuthor:\fP
+.RS 4
+Ben Hoffman 
+.RE
+.PP
+
+.SS "\fBSCRUTINYDLL_API\fP void DestroyScrutiny (\fBScrutiny\fP * Impl)"
+
+.SS "\fBSCRUTINYDLL_API\fP float TestMultiply (\fBScrutiny\fP * Impl, float a, float b)"
+
+.SS "\fBSCRUTINYDLL_API\fP int TestRequest (\fBScrutiny\fP * Impl)"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Scrutiny from the source code\&.

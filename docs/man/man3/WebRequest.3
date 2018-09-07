@@ -1,0 +1,62 @@
+.TH "WebRequest" 3 "Fri Sep 7 2018" "Version 0.01" "Scrutiny" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+WebRequest \- \fBWebRequest\fP class for interfacing with the ELK stack via sockets\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <WebRequest\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBWebRequest\fP ()"
+.br
+.ti -1c
+.RI "\fB~WebRequest\fP ()"
+.br
+.ti -1c
+.RI "void \fBSendRequest\fP (std::string aDest, std::string aMsg)"
+.br
+.RI "Send a web reuqest to the elastic instance using HTTP\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBWebRequest\fP class for interfacing with the ELK stack via sockets\&. 
+
+
+.PP
+\fBAuthor:\fP
+.RS 4
+Ben Hoffman 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "WebRequest::WebRequest ()"
+Creates a web request 
+.SS "WebRequest::~WebRequest ()"
+Destructs web req 
+.SH "Member Function Documentation"
+.PP 
+.SS "void WebRequest::SendRequest (std::string aDest, std::string aMsg)"
+
+.PP
+Send a web reuqest to the elastic instance using HTTP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIaDest\fP The destination IP address of the ELK instance 
+.br
+\fIaMesg\fP The message you would like to send to the ELK instance 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Scrutiny from the source code\&.
