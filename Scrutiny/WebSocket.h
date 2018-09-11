@@ -8,6 +8,7 @@
 #pragma once
 
 #include <string>	// Use strings until we have a minimum viable product
+#include <winsock.h>
 
 class WebSocket
 {
@@ -26,7 +27,7 @@ public:
 	* @param aDest  The destination IP address of the ELK instance
 	* @param aMesg	The message you would like to send to the ELK instance
 	*/
-	void SendRequest(std::string aDest, std::string aMsg);
+	void SendRequest(const char* aURL, const char* aMsg);
 
 };
 

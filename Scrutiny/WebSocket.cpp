@@ -13,8 +13,11 @@ WebSocket::~WebSocket()
 	
 }
 
-void WebSocket::SendRequest(std::string aDest, std::string aMsg)
+void WebSocket::SendRequest(const char* aURL, const char* aMsg)
 {
 	// Use a socket to send this data to our ELK instance
+
+	printf("Request here! \n\t %s \n\t %s", aURL, aMsg);
+
 
 }
