@@ -8,26 +8,28 @@
 #pragma once
 
 #include <string>	// Use strings until we have a minimum viable product
-#include <winsock.h>
+#include <winsock.h> // TODO: Make this portable
 
-class WebSocket
+namespace Scrut
 {
-public:
-	
-	/** Creates a web request */
-	WebSocket();
-	
-	/** Destructs web req */
-	~WebSocket();
+	class WebSocket
+	{
+	public:
 
-	
-	/**
-	* @brief Send a web reuqest to the elastic instance using HTTP
-	*
-	* @param aDest  The destination IP address of the ELK instance
-	* @param aMesg	The message you would like to send to the ELK instance
-	*/
-	void SendRequest(const char* aURL, const char* aMsg);
+		/** Creates a web request */
+		WebSocket();
 
-};
+		/** Destructs web req */
+		~WebSocket();
 
+
+		/**
+		* @brief Send a web reuqest to the elastic instance using HTTP
+		*
+		* @param aDest  The destination IP address of the ELK instance
+		* @param aMesg	The message you would like to send to the ELK instance
+		*/
+		void SendRequest(const char* aURL, const char* aMsg);
+
+	};
+}

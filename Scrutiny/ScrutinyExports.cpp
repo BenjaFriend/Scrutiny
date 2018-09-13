@@ -12,23 +12,23 @@
 extern "C"
 {
 	
-	Scrutiny* CreateScrutiny()
+	Scrut::Scrutiny* CreateScrutiny()
 	{
-		return new Scrutiny();
+		return new Scrut::Scrutiny();
 	}
 
-	void DestroyScrutiny(Scrutiny* Impl)
+	void DestroyScrutiny(Scrut::Scrutiny* Impl)
 	{
 		delete Impl;
 	}
 
-	float TestMultiply(Scrutiny* Impl, float a, float b)
+	float TestMultiply(Scrut::Scrutiny* Impl, float a, float b)
 	{
 		return Impl->TestMultiply(a, b);
 	}
 
 
-	int TestRequest(Scrutiny* Impl)
+	int TestRequest(Scrut::Scrutiny* Impl)
 	{
 		return Impl->TestRequest();
 	}

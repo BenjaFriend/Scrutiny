@@ -11,31 +11,33 @@
 #include <stdio.h>
 #include "WebSocket.h"
 
-class Scrutiny
+namespace Scrut
 {
+	class Scrutiny
+	{
 
-public:
-	
-	/** Default Constructor*/
-	Scrutiny();
+	public:
 
-	/** Default destructor */
-	~Scrutiny();
+		/** Default Constructor*/
+		Scrutiny();
 
-	/** 
-	* Send a test web socket request to the ELK stack 
-	*
-	* @return	Status of the request
-	*/
-	int TestRequest();
+		/** Default destructor */
+		~Scrutiny();
 
-	/**
-	* @brief Test a functoin for ensuring our DLL can be used properly
-	*
-	* @param a	First number to be multiplied
-	* @param b	Second number to be multiplied
-	*/
-	float TestMultiply(float a, float b);
+		/**
+		* Send a test web socket request to the ELK stack
+		*
+		* @return	Status of the request
+		*/
+		int TestRequest();
 
+		/**
+		* @brief Test a functoin for ensuring our DLL can be used properly
+		*
+		* @param a	First number to be multiplied
+		* @param b	Second number to be multiplied
+		*/
+		float TestMultiply(float a, float b);
 
-};
+	};
+}

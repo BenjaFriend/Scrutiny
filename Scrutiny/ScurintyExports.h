@@ -20,12 +20,12 @@ extern "C"
 {
 
 	// Constructor and Destructor for Scrutiny
-	SCRUTINYDLL_API Scrutiny* CreateScrutiny();
-	SCRUTINYDLL_API void DestroyScrutiny(Scrutiny* Impl);
+	SCRUTINYDLL_API Scrut::Scrutiny* CreateScrutiny();
+	SCRUTINYDLL_API void DestroyScrutiny(Scrut::Scrutiny* Impl);
 
 
-	SCRUTINYDLL_API float TestMultiply(Scrutiny* Impl, float a, float b);
-	SCRUTINYDLL_API int TestRequest(Scrutiny* Impl);
+	SCRUTINYDLL_API float TestMultiply(Scrut::Scrutiny* Impl, float a, float b);
+	SCRUTINYDLL_API int TestRequest(Scrut::Scrutiny* Impl);
 
 
 }

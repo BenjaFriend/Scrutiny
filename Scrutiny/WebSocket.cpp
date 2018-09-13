@@ -1,16 +1,16 @@
 #include "stdafx.h"
 #include "WebSocket.h"
 
+using namespace Scrut;
 
 WebSocket::WebSocket()
 {
 	// Create some sockets
 }
 
-
 WebSocket::~WebSocket()
 {
-	
+	// Destroy any info that we need to
 }
 
 void WebSocket::SendRequest(const char* aURL, const char* aMsg)
