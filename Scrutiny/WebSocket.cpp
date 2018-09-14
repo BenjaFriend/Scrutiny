@@ -41,26 +41,28 @@ int WebSocket::SendRequest(const char* aURL, const char* aMsg)
 {
 	// Use a socket to send this data to our ELK instance
 
-	printf("Request here! \n======\t\n %s \n\t %s\n======\n", aURL, aMsg);
+	//printf("Request here! \n======\t\n %s \n\t %s\n======\n", aURL, aMsg);
 
 	// This is the curl we want to replicate in winsoc
 	// curl -X POST "localhost:9200/twitter/_doc/" -H 'Content-Type: application/json' -d
 	// '{ "user" : "kimchy", "post_date" : "2018-09-13T14:12:12","message" : "trying out Elasticsearch FROM git bash" }'
 
-	std::string message = "";
-	message += "POST \"localhost:9200/twitter/_doc/\" -H 'Content-Type: application/json' -d'";
-	message += "{ \"user\" : \"kimchy\", ";
-	message += "\"post_date\" : \"2017-09-13T14:12:12\", ";
-	message += "\"message\" : \"trying out Elasticsearch FROM CPPPPP\" }'";
-
-	std::string post_http = " ";
-	post_http += "POST \ HTTP/1.1\r\nHost: ";
-	post_http += "localhost";
+	std::string post_http = "";
+	post_http += "POST / HTTP/1.1\r\nHost: ";
+	post_http += aURL;	// "127.0.0.1"
+	post_http += "/twitter/_doc/";
 	post_http += "\r\nConnection: close\r\n\r\n";
+	post_http += "'{ \"user\" : \"kimchy\", ";
+	post_http += "\"post_date\" : \"2017-09-13T14:12:12\", ";
+	post_http += "\"message\" : \"trying out Elasticsearch FROM CPPPPP\" }'";
 
-	SOCKADDR_IN SockAddr;
+	printf("Our post message: \n\n%s\n\n", post_http.c_str());
+
+	SOCKADDR_IN SockAddr;	// The address info of where we want to connect to
+	//struct hostent *host;
+
 	// SockAddr.sin_addr.s_addr = inet_addr( aURL );	// Use the specified server URL
-	SockAddr.sin_port = 9200;						// Port 9200 (Elasticsearch)
+	SockAddr.sin_port	= 9200;						// Port 9200 (Elasticsearch)
 	SockAddr.sin_family = AF_INET;					// we want TCP/IP
 	
 	// Connect to 127.0.0.1		
@@ -79,17 +81,15 @@ int WebSocket::SendRequest(const char* aURL, const char* aMsg)
 		return 1;
 	}
 
-	printf("\n\tSocket Connected\n");	// we fail here
+	printf("\n\tSocket Connected!\n");	// we are failing here
 
 	// Send a message to the server
 	// use the above POST request to insert data into kibana
+	send(Socket, post_http.c_str(), strlen(post_http.c_str()), 0);
 
-
+	// Right now I don't care about what the response is
 
 	printf("\nDone getting this stuff\n\n\n");
-
-
-
 	return 0;
 }
 
