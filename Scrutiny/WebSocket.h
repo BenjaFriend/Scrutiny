@@ -39,5 +39,8 @@ namespace Scrut
 		/** The active socket that will communicate with ELK  */
 		SOCKET Socket;
 
+		/** Close socket and cleanup WSA if necessary */
+		void Disconnect();
+
 	};
 }
