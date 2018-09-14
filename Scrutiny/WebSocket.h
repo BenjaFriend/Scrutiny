@@ -9,6 +9,7 @@
 
 #include <string>		// Use strings until we have a minimum viable product
 #include <WinSock2.h>	// WinSock
+#include <Ws2tcpip.h>
 
 #pragma comment(lib,"ws2_32.lib") //Winsock Library
 
@@ -37,7 +38,7 @@ namespace Scrut
 	private:
 
 		/** The active socket that will communicate with ELK  */
-		SOCKET Socket;
+		SOCKET Socket = INVALID_SOCKET;
 
 		/** Close socket and cleanup WSA if necessary */
 		void Disconnect();
