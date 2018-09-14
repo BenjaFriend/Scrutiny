@@ -1,0 +1,7 @@
+curl -X PUT "localhost:9200/twitter/_doc/1" -H 'Content-Type: application/json' -d' { "user" : "kimchy", "post_date" : "2016-11-15T14:12:12", "message" : "trying out Elasticsearch" }'
+curl -X POST "localhost:9200/twitter/_doc/" -H 'Content-Type: application/json' -d '{ "user" : "kimchy", "post_date" : "2018-09-13T14:12:12","message" : "trying out Elasticsearch FROM git bash" }'
+
+curl -X POST "localhost:9200/twitter/_doc/" -H 'Content-Type: application/json' -d' { "user" : "kimchy", "post_date" : "2015-11-15T14:12:12", "message" : "trying out Elasticsearch" }'
+
+
+curl -X GET "localhost:9200/_cat/indices?v"

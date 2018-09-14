@@ -7,8 +7,10 @@
 
 #pragma once
 
-#include <string>	// Use strings until we have a minimum viable product
-#include <winsock.h> // TODO: Make this portable
+#include <string>		// Use strings until we have a minimum viable product
+#include <WinSock2.h>	// WinSock
+
+#pragma comment(lib,"ws2_32.lib") //Winsock Library
 
 namespace Scrut
 {
@@ -28,8 +30,14 @@ namespace Scrut
 		*
 		* @param aDest  The destination IP address of the ELK instance
 		* @param aMesg	The message you would like to send to the ELK instance
+		* @return		Result from the socket attempt
 		*/
-		void SendRequest(const char* aURL, const char* aMsg);
+		int SendRequest(const char* aURL, const char* aMsg);
+
+	private:
+
+		/** The active socket that will communicate with ELK  */
+		SOCKET Socket;
 
 	};
 }
