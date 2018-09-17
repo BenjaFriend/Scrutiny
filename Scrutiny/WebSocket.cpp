@@ -15,9 +15,6 @@ WebSocket::WebSocket()
 		printf("WSA Initialization failed. Error Code : %d\n", WSAGetLastError());
 		return;
 	}
-	printf("\n\n ** WSA Initialised. ** \n");
-
-	
 }
 
 WebSocket::~WebSocket()
@@ -33,14 +30,19 @@ int WebSocket::SendRequest(const char* aURL, const char* aMsg)
 	// '{ "user" : "kimchy", "post_date" : "2018-09-13T14:12:12","message" : "trying out Elasticsearch FROM git bash" }'
 
 	std::string post_http = "";
-	post_http += "POST /twitter/_doc/ HTTP/1.1\r\nHost: ";
-	post_http += aURL;	// "127.0.0.1"
-	post_http += ":9200";
-	post_http += "\r\nConnection: close\r\n\r\n";
-	post_http += "'{ \"user\" : \"kimchy\", ";
-	post_http += "\"post_date\" : \"2017-09-13T14:12:12\", ";
+	post_http += "POST /twitter/_doc/1? HTTP/1.1\n";
+	post_http += "Content-Type: application/json; charset=UTF-8\n";
+	post_http += "Host: ";
+	post_http += aURL;
+	post_http += ":9200\n";
+	post_http += "User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36\n";
+	post_http += "'{ \"post_date\" : \"2017-11-16T14:12:12\", ";
 	post_http += "\"message\" : \"trying out Elasticsearch FROM CPPPPP\" }'";
+	post_http += "\r\nConnection: close\r\n\r\n";
+
 	
+	printf("Our request is here:\n=====\n\n%s\n=====\n", post_http.c_str());
+
 	int iResult = 0;
 
 	struct addrinfo *result = NULL,
@@ -73,8 +75,6 @@ int WebSocket::SendRequest(const char* aURL, const char* aMsg)
 		return 1;
 	}
 
-	//printf("Our string is: \n\t");
-
 	printf("\n\n ** Socket created ** \n");
 
 	// Connect to server.
@@ -94,7 +94,6 @@ int WebSocket::SendRequest(const char* aURL, const char* aMsg)
 		return 1;
 	}
 
-	//char sendbuf[] = "this is a test";
 	int recvbuflen = DEFAULT_BUFLEN;
 	char recvbuf[DEFAULT_BUFLEN];
 
@@ -122,13 +121,14 @@ int WebSocket::SendRequest(const char* aURL, const char* aMsg)
 	}
 
 	// Receive data until the server closes the connection
+	int dataRecieved = 0;
 	do 
 	{
 		iResult = recv(Socket, recvbuf, recvbuflen, 0);
+		dataRecieved += iResult;
 		if (iResult > 0)
 		{
 			printf("Bytes received: %d\n", iResult);
-
 		}
 		else if (iResult == 0)
 		{
@@ -140,51 +140,13 @@ int WebSocket::SendRequest(const char* aURL, const char* aMsg)
 		}
 	} while (iResult > 0);
 
-	printf("Recieved info: \n%s", recvbuf);
+	
+	printf("\t\tData Size: %d\n", dataRecieved);
+	
+	recvbuf[ dataRecieved ] = 0;
+	
+	printf("Recieved info: \n%s",  recvbuf);
 
-	//printf("Our post message: \n\n%s\n\n", post_http.c_str());
-/*
-	SOCKADDR_IN SockAddr;	// The address info of where we want to connect to
-	//SockAddr.sin_port	= 9200;						// Port 9200 (Elasticsearch)
-	SockAddr.sin_family = AF_INET;					// we want TCP/IP
-	SockAddr.sin_port = 9200;	
-	//SockAddr.sin_addr.s_addr = inet_addr(aURL);
-	SockAddr.sin_addr.S_un.S_un_b.s_b1 = 127;
-	SockAddr.sin_addr.S_un.S_un_b.s_b2 = 0;
-	SockAddr.sin_addr.S_un.S_un_b.s_b3 = 0;
-	SockAddr.sin_addr.S_un.S_un_b.s_b4 = 1;
-
-	int result = connect(Socket, (SOCKADDR *)&SockAddr, sizeof(SockAddr));
-
-	//connect(Socket, (SOCKADDR *)&SockAddr, sizeof(SockAddr))
-	//// Attempt to connect to the elk server. this is failing. 
-	if (result != 0)
-	{
-		printf("\n\tSocker Error Result: %d", result);
-		return 1;
-	}
-
-	printf("\n\t ==== Socket Connected! ==== \n");	// we are failing here
-
-
-	// Send a test message here
-	std::string message = "GET / HTTP/1.1\r\n\r\n";
-	if (send(Socket, message.c_str(), strlen(message.c_str()), 0) < 0)
-	{
-		printf("\nSend failed!\n\n");
-		return 1;
-	}
-
-	printf("Sent this data\n");
-
-
-	// Send a message to the server
-	// use the above POST request to insert data into kibana
-	send(Socket, post_http.c_str(), strlen(post_http.c_str()), 0);
-
-	// Right now I don't care about what the response is
-	*/
-	printf("\nDone getting this stuff\n\n\n");
 	return 0;
 }
 
