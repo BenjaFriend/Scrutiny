@@ -29,18 +29,26 @@ int WebSocket::SendRequest(const char* aURL, const char* aMsg)
 	// curl -X POST "localhost:9200/twitter/_doc/" -H 'Content-Type: application/json' -d
 	// '{ "user" : "kimchy", "post_date" : "2018-09-13T14:12:12","message" : "trying out Elasticsearch FROM git bash" }'
 
+	std::string body = "";
+	body += "{ \"post_date\" : \"2017-11-16T14:12:12\", ";
+	body += "\"message\" : \"trying out Elasticsearch FROM CPPPPP\" }";
+	
 	std::string url = aURL;
 
 	std::string post_http = "";
 	post_http += "POST /twitter/_doc/1? HTTP/1.1\r\n";
 	post_http += "Content-Type: application/json; charset=UTF-8\r\n";
+	post_http += "Content-Encoding: identity\r\n";
+	post_http += "Content-Length: ";
+	post_http += std::to_string(body.length());	
+	post_http += "\r\n";
 	post_http += "Host: " + url + ":9200\r\n";
 	post_http += "User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36\r\n";
 	post_http += "Connection: close\r\n";
 	post_http += "\r\n"; // EMPTY line between header and body.
-	post_http += "'{ \"post_date\" : \"2017-11-16T14:12:12\", ";
-	post_http += "\"message\" : \"trying out Elasticsearch FROM CPPPPP\" }'";
-
+	post_http += body;
+	
+	
 	printf("Our request is here:\n=====\n\n%s\n=====\n", post_http.c_str());
 
 	int iResult = 0;
