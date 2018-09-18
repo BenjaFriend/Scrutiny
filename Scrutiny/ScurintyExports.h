@@ -24,8 +24,8 @@ extern "C"
 	SCRUTINYDLL_API void DestroyScrutiny(Scrut::Scrutiny* Impl);
 
 
-	SCRUTINYDLL_API float TestMultiply(Scrut::Scrutiny* Impl, float a, float b);
-	SCRUTINYDLL_API int TestRequest(Scrut::Scrutiny* Impl);
 
+	SCRUTINYDLL_API int TestRequest(Scrut::Scrutiny* Impl);
+	SCRUTINYDLL_API int GetIndex(Scrut::Scrutiny* Impl, const char* aIndex);
 
 }

@@ -1,6 +1,7 @@
 /**
-* @brief	Implementatoin of all exported functions. This has to be done because
-* 			of how Unity is working with their DLL import stuff
+* @brief	Implementatoin of all exported functions. This has to 
+*			be done with a pointer implementation because of 
+*			limitations with Unity. 
 * 
 * @author	Ben Hoffman
 */
@@ -11,7 +12,6 @@
 
 extern "C"
 {
-	
 	Scrut::Scrutiny* CreateScrutiny()
 	{
 		return new Scrut::Scrutiny();
@@ -22,14 +22,13 @@ extern "C"
 		delete Impl;
 	}
 
-	float TestMultiply(Scrut::Scrutiny* Impl, float a, float b)
-	{
-		return Impl->TestMultiply(a, b);
-	}
-
-
 	int TestRequest(Scrut::Scrutiny* Impl)
 	{
 		return Impl->TestRequest();
+	}
+
+	int GetIndex(Scrut::Scrutiny* Impl, const char* aIndex)
+	{
+		return Impl->GetIndex(aIndex);
 	}
 }

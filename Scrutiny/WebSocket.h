@@ -8,10 +8,14 @@
 #pragma once
 
 #include <string>		// Use strings until we have a minimum viable product
+#include <assert.h>		// assert macro
 #include <WinSock2.h>	// WinSock
 #include <Ws2tcpip.h>
 
 #pragma comment(lib,"ws2_32.lib") //Winsock Library
+
+#define MAX_HOST_LENGTH 256
+
 
 namespace Scrut
 {
@@ -20,20 +24,27 @@ namespace Scrut
 	public:
 
 		/** Creates a web request */
-		WebSocket();
+		WebSocket(const char* aHostURL, const char* aHostPort);
 
 		/** Destructs web req */
 		~WebSocket();
 
+		/** 
+		* Connect the socket to the Elasticsearch instance
+		* 
+		* @ return	The result of creating the socket
+		*/
+		int ConnectSocket();
 
 		/**
 		* @brief Send a web reuqest to the elastic instance using HTTP
 		*
-		* @param aDest  The destination IP address of the ELK instance
-		* @param aMesg	The message you would like to send to the ELK instance
-		* @return		Result from the socket attempt
+		* @param aMethod	The HTTP method of this request (POST, PUT, GET, etc)
+		* @param aIndexParam		the ELK index you are interest in
+		* @param aMesg		The message you would like to send to the ELK instance
+		* @return			Result from the socket attempt
 		*/
-		int SendRequest(const char* aURL, const char* aMsg);
+		int SendRequest(const char*  aMethod, const char*  aIndexParam, const char* aMsg);
 
 	private:
 
@@ -42,6 +53,13 @@ namespace Scrut
 
 		/** Close socket and cleanup WSA if necessary */
 		void Disconnect();
+
+		/** The host that this socket will connect to  */
+		char HostURL[MAX_HOST_LENGTH];
+		
+		/** The host port */
+		char HostPort[64];
+
 
 	};
 }

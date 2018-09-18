@@ -32,12 +32,16 @@ namespace Scrut
 		int TestRequest();
 
 		/**
-		* @brief Test a functoin for ensuring our DLL can be used properly
-		*
-		* @param a	First number to be multiplied
-		* @param b	Second number to be multiplied
+		* Get information about an index in elasticsearch
+		* 
+		* @param index		The index you would like to recieve information about
 		*/
-		float TestMultiply(float a, float b);
+		int GetIndex(const char* aIndex);
+
+	private:
+
+		/** The socket we will use to communicate with the ELK stack */
+		WebSocket* ELK_Socket = nullptr;
 
 	};
 }
