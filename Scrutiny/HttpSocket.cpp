@@ -1,11 +1,11 @@
 #include "stdafx.h"
-#include "WebSocket.h"
+#include "HttpSocket.h"
 
 #define DEFAULT_BUFLEN 1024
 
 using namespace Scrut;
 
-WebSocket::WebSocket(const char* aHostURL, const char* aHostPort)
+HttpSocket::HttpSocket(const char* aHostURL, const char* aHostPort)
 {
 	// Copy the host url and port into info
 	strcpy_s(HostURL, strnlen_s(aHostURL, MAX_HOST_LENGTH) + 1, aHostURL);
@@ -25,13 +25,13 @@ WebSocket::WebSocket(const char* aHostURL, const char* aHostPort)
 
 }
 
-WebSocket::~WebSocket()
+HttpSocket::~HttpSocket()
 {
 	// Clean up the socket here	
 	Disconnect();
 }
 
-int WebSocket::ConnectSocket()
+int HttpSocket::ConnectSocket()
 {
 	int iResult = 0;
 
@@ -86,7 +86,7 @@ int WebSocket::ConnectSocket()
 	return iResult;
 }
 
-int WebSocket::SendRequest(const char* aMethod, const char* aIndexParam, const char* aMsg)
+int HttpSocket::SendRequest(const char* aMethod, const char* aIndexParam, const char* aMsg)
 {
 	// TODO: Make this a more effecient stream instead of using the std::string
 	assert(strcmp(aMethod, "GET") || strcmp(aMethod, "POST") || strcmp(aMethod, "PUT"));
@@ -166,7 +166,7 @@ int WebSocket::SendRequest(const char* aMethod, const char* aIndexParam, const c
 	return iResult;
 }
 
-void WebSocket::Disconnect()
+void HttpSocket::Disconnect()
 {
 	if (Socket >= 0)
 	{

@@ -19,15 +19,15 @@
 
 namespace Scrut
 {
-	class WebSocket
+	class HttpSocket
 	{
 	public:
 
 		/** Creates a web request */
-		WebSocket(const char* aHostURL, const char* aHostPort);
+		HttpSocket(const char* aHostURL, const char* aHostPort);
 
 		/** Destructs web req */
-		~WebSocket();
+		~HttpSocket();
 
 		/** 
 		* Connect the socket to the Elasticsearch instance

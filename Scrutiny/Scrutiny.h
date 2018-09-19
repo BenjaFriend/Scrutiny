@@ -9,7 +9,7 @@
 */
 
 #include <stdio.h>
-#include "WebSocket.h"
+#include "HttpSocket.h"
 
 namespace Scrut
 {
@@ -31,6 +31,8 @@ namespace Scrut
 		*/
 		int TestRequest();
 
+		
+
 		/**
 		* Get information about an index in elasticsearch
 		* 
@@ -41,7 +43,7 @@ namespace Scrut
 	private:
 
 		/** The socket we will use to communicate with the ELK stack */
-		WebSocket* ELK_Socket = nullptr;
+		HttpSocket * ELK_Socket = nullptr;
 
 		/** The index that the user would like to report to */
 		char* CurrentIndex = nullptr;
