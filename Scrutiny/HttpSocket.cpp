@@ -20,9 +20,6 @@ HttpSocket::HttpSocket(const char* aHostURL, const char* aHostPort)
 		return;
 	}
 
-
-	ConnectSocket();
-
 }
 
 HttpSocket::~HttpSocket()
@@ -44,7 +41,7 @@ int HttpSocket::ConnectSocket()
 	hints.ai_socktype	= SOCK_STREAM;
 	hints.ai_protocol	= IPPROTO_TCP;
 
-	iResult = getaddrinfo(HostURL, "9200", &hints, &result);
+	iResult = getaddrinfo(HostURL, HostPort, &hints, &result);
 
 	if (iResult != 0)
 	{
@@ -90,6 +87,9 @@ int HttpSocket::SendRequest(const char* aMethod, const char* aIndexParam, const 
 {
 	// TODO: Make this a more effecient stream instead of using the std::string
 	assert(strcmp(aMethod, "GET") || strcmp(aMethod, "POST") || strcmp(aMethod, "PUT"));
+	
+	// TODO: Investigate if I actually need to reconnect the socket every time a request is made? 
+	ConnectSocket();
 
 	std::string indexParam = aIndexParam;
 	std::string body = aMsg;
@@ -127,41 +127,37 @@ int HttpSocket::SendRequest(const char* aMethod, const char* aIndexParam, const 
 	if (iResult == SOCKET_ERROR) 
 	{
 		printf("send failed: %d\n", WSAGetLastError());
-		closesocket(Socket);
-		WSACleanup();
+		Disconnect();
 		return 1;
 	}
 
 	printf("\t\t ** Bytes Sent: %ld\n", iResult);
 
 	// Receive data until the server closes the connection
-	int dataRecieved = 0;
-	char recvbuf[DEFAULT_BUFLEN];
+	int BytesRecieved = 0;
+	char RecieveBuffer[DEFAULT_BUFLEN];
+
+	ZeroMemory(&RecieveBuffer, sizeof(RecieveBuffer));
 
 	do 
 	{
-		iResult = recv(Socket, recvbuf, DEFAULT_BUFLEN, 0);
-		dataRecieved += iResult;
-		if (iResult > 0)
-		{
-			printf("\t\t ** Bytes received: %d\n", iResult);
-		}
-		else if (iResult == 0)
-		{
-			printf("\t\t ** Connection closed\n");
-		}
-		else
-		{
-			printf("\t\t ** recv failed: %d\n", WSAGetLastError());
-		}
-	} while (iResult > 0 && dataRecieved < DEFAULT_BUFLEN);
+		// recieve data from the server's response
+		// Using this socket, put the data we are reciving into the RecieveBuffer
+		// until you get to this buffer length. 
+		iResult = recv(Socket, RecieveBuffer, DEFAULT_BUFLEN, MSG_WAITALL);
+
+		// Keep track of how much data we are recieing so that we can add a null terminator
+		BytesRecieved += iResult;
+
+	} while (iResult > 0);	// While we are getting a response from the server
 	
-	printf("\n\t\t ** Data Recieved: %d\n\n", dataRecieved);
+	printf("\n\t\t ** Bytes Recieved: %d\n\n", BytesRecieved);
 
 	// Add a null terminator to the end of the data we recieved
-	recvbuf[dataRecieved] = 0;
+	RecieveBuffer[BytesRecieved] = 0;
 	
-	printf("\n============== Server Response:\n\n%s\n\n=============== End Server Response\n\n",  recvbuf);
+	printf("\n============== Server Response:\n\n%s\n\n=============== End Server Response\n\n",  RecieveBuffer);
+
 
 	return iResult;
 }
