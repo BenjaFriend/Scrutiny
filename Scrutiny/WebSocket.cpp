@@ -88,21 +88,15 @@ int WebSocket::ConnectSocket()
 
 int WebSocket::SendRequest(const char* aMethod, const char* aIndexParam, const char* aMsg)
 {
-
-	//curl -X POST "localhost:9200/twitter/_doc/" -H 'Content-Type: application/json' -d 
-	//'{ "user" : "kimchy", "post_date" : "2018-09-13T14:12:12","message" : "trying out Elasticsearch FROM git bash" }'
-	std::string body = "";
-	//body += "{ \"post_date\" : \"2017-11-19T14:12:12\", ";
-	//body += "\"message\" : \"trying out Elasticsearch FROM CPPPPP\" }";
-	body += aMsg;
-	
+	// TODO: Make this a more effecient stream instead of using the std::string
 	assert(strcmp(aMethod, "GET") || strcmp(aMethod, "POST") || strcmp(aMethod, "PUT"));
 
 	std::string indexParam = aIndexParam;
+	std::string body = aMsg;
 
 
 	std::string post_http = "";
-	post_http += aMethod;	// GET
+	post_http += aMethod;	// GET, POST, or PUT
 	post_http += " " + indexParam;
 	post_http += " HTTP/1.1\r\n";
 	post_http += "Content-Type: application/json; charset=UTF-8\r\n";
@@ -123,7 +117,7 @@ int WebSocket::SendRequest(const char* aMethod, const char* aIndexParam, const c
 	post_http += body;
 	post_http += "\r\n";
 
-	printf("Our request is here:\n=====\n\n%s\n=====\n", post_http.c_str());
+	printf("\t\n========= REQUEST SENT\n\n%s \t\n========= End request send\n\n", post_http.c_str());
 
 	
 
@@ -138,22 +132,7 @@ int WebSocket::SendRequest(const char* aMethod, const char* aIndexParam, const c
 		return 1;
 	}
 
-	printf("Bytes Sent: %ld\n", iResult);
-
-	/* ** NOTE ** 
-	* This is the microsoft docs but it ends up cutting out the connection
-	* to the server early when recieving ? 
-	* shutdown the connection for sending since no more data will be sent
-	* the client can still use the ConnectSocket for receiving data
-
-	iResult = shutdown(Socket, SD_SEND);
-	if (iResult == SOCKET_ERROR) 
-	{
-		printf("shutdown failed: %d\n", WSAGetLastError());
-		closesocket(Socket);
-		WSACleanup();
-		return 1;
-	}*/
+	printf("\t\t ** Bytes Sent: %ld\n", iResult);
 
 	// Receive data until the server closes the connection
 	int dataRecieved = 0;
@@ -165,24 +144,24 @@ int WebSocket::SendRequest(const char* aMethod, const char* aIndexParam, const c
 		dataRecieved += iResult;
 		if (iResult > 0)
 		{
-			printf("Bytes received: %d\n", iResult);
+			printf("\t\t ** Bytes received: %d\n", iResult);
 		}
 		else if (iResult == 0)
 		{
-			printf("Connection closed\n");
+			printf("\t\t ** Connection closed\n");
 		}
 		else
 		{
-			printf("recv failed: %d\n", WSAGetLastError());
+			printf("\t\t ** recv failed: %d\n", WSAGetLastError());
 		}
-	} while (iResult > 0 /*&& dataRecieved <= DEFAULT_BUFLEN - 1*/);
+	} while (iResult > 0 && dataRecieved < DEFAULT_BUFLEN);
 	
 	printf("\n\t\t ** Data Recieved: %d\n\n", dataRecieved);
 
-	// Add a null terminator to the string
+	// Add a null terminator to the end of the data we recieved
 	recvbuf[dataRecieved] = 0;
 	
-	printf("Server Response:\n\n%s",  recvbuf);
+	printf("\n============== Server Response:\n\n%s\n\n=============== End Server Response\n\n",  recvbuf);
 
 	return iResult;
 }

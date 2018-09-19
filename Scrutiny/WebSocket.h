@@ -58,7 +58,7 @@ namespace Scrut
 		char HostURL[MAX_HOST_LENGTH];
 		
 		/** The host port */
-		char HostPort[64];
+		char HostPort[8];
 
 
 	};

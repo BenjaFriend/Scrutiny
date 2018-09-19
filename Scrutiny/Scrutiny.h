@@ -43,5 +43,8 @@ namespace Scrut
 		/** The socket we will use to communicate with the ELK stack */
 		WebSocket* ELK_Socket = nullptr;
 
+		/** The index that the user would like to report to */
+		char* CurrentIndex = nullptr;
+
 	};
 }
