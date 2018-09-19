@@ -1,4 +1,4 @@
-.TH "ScrutinyExports.cpp" 3 "Fri Sep 7 2018" "Version 0.01" "Scrutiny" \" -*- nroff -*-
+.TH "ScrutinyExports.cpp" 3 "Wed Sep 19 2018" "Version 0.01" "Scrutiny" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -15,25 +15,25 @@ ScrutinyExports.cpp
 
 .in +1c
 .ti -1c
-.RI "\fBScrutiny\fP * \fBCreateScrutiny\fP ()"
+.RI "\fBScrut::Scrutiny\fP * \fBCreateScrutiny\fP ()"
 .br
-.RI "Implementatoin of all exported functions\&. This has to be done because of how Unity is working with their DLL import stuff\&. "
+.RI "Implementatoin of all exported functions\&. This has to be done with a pointer implementation because of limitations with Unity\&. "
 .ti -1c
-.RI "void \fBDestroyScrutiny\fP (\fBScrutiny\fP *Impl)"
-.br
-.ti -1c
-.RI "float \fBTestMultiply\fP (\fBScrutiny\fP *Impl, float a, float b)"
+.RI "void \fBDestroyScrutiny\fP (\fBScrut::Scrutiny\fP *Impl)"
 .br
 .ti -1c
-.RI "int \fBTestRequest\fP (\fBScrutiny\fP *Impl)"
+.RI "int \fBTestRequest\fP (\fBScrut::Scrutiny\fP *Impl)"
+.br
+.ti -1c
+.RI "int \fBGetIndex\fP (\fBScrut::Scrutiny\fP *Impl, const char *aIndex)"
 .br
 .in -1c
 .SH "Function Documentation"
 .PP 
-.SS "\fBScrutiny\fP* CreateScrutiny ()"
+.SS "\fBScrut::Scrutiny\fP* CreateScrutiny ()"
 
 .PP
-Implementatoin of all exported functions\&. This has to be done because of how Unity is working with their DLL import stuff\&. 
+Implementatoin of all exported functions\&. This has to be done with a pointer implementation because of limitations with Unity\&. 
 .PP
 \fBAuthor:\fP
 .RS 4
@@ -41,11 +41,11 @@ Ben Hoffman
 .RE
 .PP
 
-.SS "void DestroyScrutiny (\fBScrutiny\fP * Impl)"
+.SS "void DestroyScrutiny (\fBScrut::Scrutiny\fP * Impl)"
 
-.SS "float TestMultiply (\fBScrutiny\fP * Impl, float a, float b)"
+.SS "int GetIndex (\fBScrut::Scrutiny\fP * Impl, const char * aIndex)"
 
-.SS "int TestRequest (\fBScrutiny\fP * Impl)"
+.SS "int TestRequest (\fBScrut::Scrutiny\fP * Impl)"
 
 .SH "Author"
 .PP 

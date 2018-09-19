@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['_7escrutiny',['~Scrutiny',['../class_scrutiny.html#a376cd6d228fec3f12540c53a47a77f8e',1,'Scrutiny']]],
-  ['_7ewebrequest',['~WebRequest',['../class_web_request.html#a39486f35cbc16a57245ec8ce44230a2e',1,'WebRequest']]]
+  ['testrequest',['TestRequest',['../class_scrut_1_1_scrutiny.html#ab210b8d4b50d8b67e40541b929c574ce',1,'Scrut::Scrutiny::TestRequest()'],['../_scrutiny_exports_8cpp.html#acf0586e2275f44070f2614119c7ed037',1,'TestRequest(Scrut::Scrutiny *Impl):&#160;ScrutinyExports.cpp'],['../_scurinty_exports_8h.html#a02424c3747213ce0f9f0ff702a5a5496',1,'TestRequest(Scrut::Scrutiny *Impl):&#160;ScrutinyExports.cpp']]]
 ];

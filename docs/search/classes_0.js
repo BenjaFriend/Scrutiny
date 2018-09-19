@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['scrutiny',['Scrutiny',['../class_scrutiny.html',1,'']]]
+  ['httpsocket',['HttpSocket',['../class_scrut_1_1_http_socket.html',1,'Scrut']]]
 ];

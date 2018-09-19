@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['scrutinydll_5fapi',['SCRUTINYDLL_API',['../_scurinty_exports_8h.html#a53c30e59304dcaf2457547b049538e28',1,'ScurintyExports.h']]]
+  ['default_5fbuflen',['DEFAULT_BUFLEN',['../_http_socket_8cpp.html#a5261516a174b035b084a9ae06dc85730',1,'HttpSocket.cpp']]]
 ];

@@ -24,6 +24,9 @@ for the JavaScript code in this file
 var NAVTREE =
 [
   [ "Scrutiny", "index.html", [
+    [ "Namespaces", "namespaces.html", [
+      [ "Namespace List", "namespaces.html", "namespaces_dup" ]
+    ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
@@ -45,7 +48,7 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_scrutiny_8cpp.html"
+"_http_socket_8cpp.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

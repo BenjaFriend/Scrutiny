@@ -1,0 +1,56 @@
+.TH "Scrut::Scrutiny" 3 "Wed Sep 19 2018" "Version 0.01" "Scrutiny" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Scrut::Scrutiny
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Scrutiny\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBScrutiny\fP ()"
+.br
+.ti -1c
+.RI "\fB~Scrutiny\fP ()"
+.br
+.ti -1c
+.RI "int \fBTestRequest\fP ()"
+.br
+.ti -1c
+.RI "int \fBGetIndex\fP (const char *aIndex)"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Scrutiny::Scrutiny ()"
+Default Constructor 
+.SS "Scrutiny::~Scrutiny ()"
+Default destructor 
+.SH "Member Function Documentation"
+.PP 
+.SS "int Scrutiny::GetIndex (const char * aIndex)"
+Get information about an index in elasticsearch
+.PP
+\fBParameters:\fP
+.RS 4
+\fIindex\fP The index you would like to recieve information about 
+.RE
+.PP
+
+.SS "int Scrutiny::TestRequest ()"
+Send a test web socket request to the ELK stack
+.PP
+\fBReturns:\fP
+.RS 4
+Status of the request 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Scrutiny from the source code\&.

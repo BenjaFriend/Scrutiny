@@ -1,8 +1,8 @@
 var _scurinty_exports_8h =
 [
     [ "SCRUTINYDLL_API", "_scurinty_exports_8h.html#a53c30e59304dcaf2457547b049538e28", null ],
-    [ "CreateScrutiny", "_scurinty_exports_8h.html#a872283cc20f1b3aa90cb74b370115bcd", null ],
-    [ "DestroyScrutiny", "_scurinty_exports_8h.html#a560ab86d32e7451ff7c231dde3fcef16", null ],
-    [ "TestMultiply", "_scurinty_exports_8h.html#a2a949e78dd2f8087404d7dc0f8a30a9a", null ],
-    [ "TestRequest", "_scurinty_exports_8h.html#a3905f0a920388075054e68819c4c00c3", null ]
+    [ "CreateScrutiny", "_scurinty_exports_8h.html#a1157a486d46c49aff316b8ee446e302a", null ],
+    [ "DestroyScrutiny", "_scurinty_exports_8h.html#a54ea7da0cca5c1320ca1e825e34b9d57", null ],
+    [ "GetIndex", "_scurinty_exports_8h.html#a48e3b242f297adb4ffe5acd08502c2ea", null ],
+    [ "TestRequest", "_scurinty_exports_8h.html#a02424c3747213ce0f9f0ff702a5a5496", null ]
 ];

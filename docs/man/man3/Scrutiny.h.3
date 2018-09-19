@@ -1,4 +1,4 @@
-.TH "Scrutiny.h" 3 "Fri Sep 7 2018" "Version 0.01" "Scrutiny" \" -*- nroff -*-
+.TH "Scrutiny.h" 3 "Wed Sep 19 2018" "Version 0.01" "Scrutiny" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -8,12 +8,21 @@ Scrutiny.h
 .PP
 \fC#include <stdio\&.h>\fP
 .br
+\fC#include 'HttpSocket\&.h'\fP
+.br
 
 .SS "Classes"
 
 .in +1c
 .ti -1c
-.RI "class \fBScrutiny\fP"
+.RI "class \fBScrut::Scrutiny\fP"
+.br
+.in -1c
+.SS "Namespaces"
+
+.in +1c
+.ti -1c
+.RI " \fBScrut\fP"
 .br
 .RI "Provide functionality for the user make simple calls to elasticsearch\&. Have the main configuration for the indexing patterns of ELK, what data types to send, etc\&. "
 .in -1c

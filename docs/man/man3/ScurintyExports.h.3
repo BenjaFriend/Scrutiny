@@ -1,4 +1,4 @@
-.TH "ScurintyExports.h" 3 "Fri Sep 7 2018" "Version 0.01" "Scrutiny" \" -*- nroff -*-
+.TH "ScurintyExports.h" 3 "Wed Sep 19 2018" "Version 0.01" "Scrutiny" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -21,17 +21,17 @@ ScurintyExports.h
 
 .in +1c
 .ti -1c
-.RI "\fBSCRUTINYDLL_API\fP \fBScrutiny\fP * \fBCreateScrutiny\fP ()"
+.RI "\fBSCRUTINYDLL_API\fP \fBScrut::Scrutiny\fP * \fBCreateScrutiny\fP ()"
 .br
-.RI "Implementatoin of all exported functions\&. This has to be done because of how Unity is working with their DLL import stuff\&. "
+.RI "Implementatoin of all exported functions\&. This has to be done with a pointer implementation because of limitations with Unity\&. "
 .ti -1c
-.RI "\fBSCRUTINYDLL_API\fP void \fBDestroyScrutiny\fP (\fBScrutiny\fP *Impl)"
-.br
-.ti -1c
-.RI "\fBSCRUTINYDLL_API\fP float \fBTestMultiply\fP (\fBScrutiny\fP *Impl, float a, float b)"
+.RI "\fBSCRUTINYDLL_API\fP void \fBDestroyScrutiny\fP (\fBScrut::Scrutiny\fP *Impl)"
 .br
 .ti -1c
-.RI "\fBSCRUTINYDLL_API\fP int \fBTestRequest\fP (\fBScrutiny\fP *Impl)"
+.RI "\fBSCRUTINYDLL_API\fP int \fBTestRequest\fP (\fBScrut::Scrutiny\fP *Impl)"
+.br
+.ti -1c
+.RI "\fBSCRUTINYDLL_API\fP int \fBGetIndex\fP (\fBScrut::Scrutiny\fP *Impl, const char *aIndex)"
 .br
 .in -1c
 .SH "Macro Definition Documentation"
@@ -49,10 +49,10 @@ Ben Hoffman
 
 .SH "Function Documentation"
 .PP 
-.SS "\fBSCRUTINYDLL_API\fP \fBScrutiny\fP* CreateScrutiny ()"
+.SS "\fBSCRUTINYDLL_API\fP \fBScrut::Scrutiny\fP* CreateScrutiny ()"
 
 .PP
-Implementatoin of all exported functions\&. This has to be done because of how Unity is working with their DLL import stuff\&. 
+Implementatoin of all exported functions\&. This has to be done with a pointer implementation because of limitations with Unity\&. 
 .PP
 \fBAuthor:\fP
 .RS 4
@@ -60,11 +60,11 @@ Ben Hoffman
 .RE
 .PP
 
-.SS "\fBSCRUTINYDLL_API\fP void DestroyScrutiny (\fBScrutiny\fP * Impl)"
+.SS "\fBSCRUTINYDLL_API\fP void DestroyScrutiny (\fBScrut::Scrutiny\fP * Impl)"
 
-.SS "\fBSCRUTINYDLL_API\fP float TestMultiply (\fBScrutiny\fP * Impl, float a, float b)"
+.SS "\fBSCRUTINYDLL_API\fP int GetIndex (\fBScrut::Scrutiny\fP * Impl, const char * aIndex)"
 
-.SS "\fBSCRUTINYDLL_API\fP int TestRequest (\fBScrutiny\fP * Impl)"
+.SS "\fBSCRUTINYDLL_API\fP int TestRequest (\fBScrut::Scrutiny\fP * Impl)"
 
 .SH "Author"
 .PP 

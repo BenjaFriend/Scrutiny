@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.14"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Scrutiny: WebRequest Class Reference</title>
+<title>Scrutiny: Scrut::HttpSocket Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,6 +21,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -68,7 +69,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('class_web_request.html','');});
+$(document).ready(function(){initNavTree('class_scrut_1_1_http_socket.html','');});
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -89,42 +90,49 @@ $(document).ready(function(){initNavTree('class_web_request.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="class_web_request-members.html">List of all members</a>  </div>
+<a href="class_scrut_1_1_http_socket-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">WebRequest Class Reference</div>  </div>
+<div class="title">Scrut::HttpSocket Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="class_web_request.html" title="WebRequest class for interfacing with the ELK stack via sockets. ">WebRequest</a> class for interfacing with the ELK stack via sockets.  
- <a href="class_web_request.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="_web_request_8h_source.html">WebRequest.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="_http_socket_8h_source.html">HttpSocket.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a1e110ed1950d7aedb3e98557cf509f4e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_web_request.html#a1e110ed1950d7aedb3e98557cf509f4e">WebRequest</a> ()</td></tr>
-<tr class="separator:a1e110ed1950d7aedb3e98557cf509f4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a39486f35cbc16a57245ec8ce44230a2e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_web_request.html#a39486f35cbc16a57245ec8ce44230a2e">~WebRequest</a> ()</td></tr>
-<tr class="separator:a39486f35cbc16a57245ec8ce44230a2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b7a06212b6b2fbcfb7a97f8472e81d5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_web_request.html#a9b7a06212b6b2fbcfb7a97f8472e81d5">SendRequest</a> (std::string aDest, std::string aMsg)</td></tr>
-<tr class="memdesc:a9b7a06212b6b2fbcfb7a97f8472e81d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a web reuqest to the elastic instance using HTTP.  <a href="#a9b7a06212b6b2fbcfb7a97f8472e81d5">More...</a><br /></td></tr>
-<tr class="separator:a9b7a06212b6b2fbcfb7a97f8472e81d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9917bd3998b920a5472fa6c8ff279a31"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scrut_1_1_http_socket.html#a9917bd3998b920a5472fa6c8ff279a31">HttpSocket</a> (const char *aHostURL, const char *aHostPort)</td></tr>
+<tr class="separator:a9917bd3998b920a5472fa6c8ff279a31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01bf17bc2193e93b06f06cdf3b3a5056"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scrut_1_1_http_socket.html#a01bf17bc2193e93b06f06cdf3b3a5056">~HttpSocket</a> ()</td></tr>
+<tr class="separator:a01bf17bc2193e93b06f06cdf3b3a5056"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a009308d561de7ebbd11ef0d512a16c4a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scrut_1_1_http_socket.html#a009308d561de7ebbd11ef0d512a16c4a">ConnectSocket</a> ()</td></tr>
+<tr class="separator:a009308d561de7ebbd11ef0d512a16c4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11184ccc93c562f108eccc03684f0c93"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scrut_1_1_http_socket.html#a11184ccc93c562f108eccc03684f0c93">SendRequest</a> (const char *aMethod, const char *aIndexParam, const char *aMsg)</td></tr>
+<tr class="memdesc:a11184ccc93c562f108eccc03684f0c93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a web reuqest to the elastic instance using HTTP.  <a href="#a11184ccc93c562f108eccc03684f0c93">More...</a><br /></td></tr>
+<tr class="separator:a11184ccc93c562f108eccc03684f0c93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="class_web_request.html" title="WebRequest class for interfacing with the ELK stack via sockets. ">WebRequest</a> class for interfacing with the ELK stack via sockets. </p>
-<dl class="section author"><dt>Author</dt><dd>Ben Hoffman </dd></dl>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a1e110ed1950d7aedb3e98557cf509f4e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1e110ed1950d7aedb3e98557cf509f4e">&#9670;&nbsp;</a></span>WebRequest()</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a9917bd3998b920a5472fa6c8ff279a31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9917bd3998b920a5472fa6c8ff279a31">&#9670;&nbsp;</a></span>HttpSocket()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">WebRequest::WebRequest </td>
+          <td class="memname">HttpSocket::HttpSocket </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>aHostURL</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>aHostPort</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -132,14 +140,14 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a39486f35cbc16a57245ec8ce44230a2e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a39486f35cbc16a57245ec8ce44230a2e">&#9670;&nbsp;</a></span>~WebRequest()</h2>
+<a id="a01bf17bc2193e93b06f06cdf3b3a5056"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01bf17bc2193e93b06f06cdf3b3a5056">&#9670;&nbsp;</a></span>~HttpSocket()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">WebRequest::~WebRequest </td>
+          <td class="memname">HttpSocket::~HttpSocket </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -151,22 +159,47 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9b7a06212b6b2fbcfb7a97f8472e81d5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b7a06212b6b2fbcfb7a97f8472e81d5">&#9670;&nbsp;</a></span>SendRequest()</h2>
+<a id="a009308d561de7ebbd11ef0d512a16c4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a009308d561de7ebbd11ef0d512a16c4a">&#9670;&nbsp;</a></span>ConnectSocket()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void WebRequest::SendRequest </td>
+          <td class="memname">int HttpSocket::ConnectSocket </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>aDest</em>, </td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Connect the socket to the Elasticsearch instance</p>
+<p>@ return The result of creating the socket </p>
+
+</div>
+</div>
+<a id="a11184ccc93c562f108eccc03684f0c93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11184ccc93c562f108eccc03684f0c93">&#9670;&nbsp;</a></span>SendRequest()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int HttpSocket::SendRequest </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>aMethod</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>aIndexParam</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>aMsg</em>&#160;</td>
         </tr>
         <tr>
@@ -180,24 +213,26 @@ Public Member Functions</h2></td></tr>
 <p>Send a web reuqest to the elastic instance using HTTP. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">aDest</td><td>The destination IP address of the ELK instance </td></tr>
+    <tr><td class="paramname">aMethod</td><td>The HTTP method of this request (POST, PUT, GET, etc) </td></tr>
+    <tr><td class="paramname">aIndexParam</td><td>the ELK index you are interest in </td></tr>
     <tr><td class="paramname">aMesg</td><td>The message you would like to send to the ELK instance </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>Result from the socket attempt </dd></dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="_web_request_8h_source.html">WebRequest.h</a></li>
-<li><a class="el" href="_web_request_8cpp.html">WebRequest.cpp</a></li>
+<li><a class="el" href="_http_socket_8h_source.html">HttpSocket.h</a></li>
+<li><a class="el" href="_http_socket_8cpp.html">HttpSocket.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="class_web_request.html">WebRequest</a></li>
+    <li class="navelem"><a class="el" href="namespace_scrut.html">Scrut</a></li><li class="navelem"><a class="el" href="class_scrut_1_1_http_socket.html">HttpSocket</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.14 </li>

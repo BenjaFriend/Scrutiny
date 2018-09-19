@@ -1,0 +1,63 @@
+.TH "Scrut::HttpSocket" 3 "Wed Sep 19 2018" "Version 0.01" "Scrutiny" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Scrut::HttpSocket
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <HttpSocket\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBHttpSocket\fP (const char *aHostURL, const char *aHostPort)"
+.br
+.ti -1c
+.RI "\fB~HttpSocket\fP ()"
+.br
+.ti -1c
+.RI "int \fBConnectSocket\fP ()"
+.br
+.ti -1c
+.RI "int \fBSendRequest\fP (const char *aMethod, const char *aIndexParam, const char *aMsg)"
+.br
+.RI "Send a web reuqest to the elastic instance using HTTP\&. "
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "HttpSocket::HttpSocket (const char * aHostURL, const char * aHostPort)"
+Creates a web request 
+.SS "HttpSocket::~HttpSocket ()"
+Destructs web req 
+.SH "Member Function Documentation"
+.PP 
+.SS "int HttpSocket::ConnectSocket ()"
+Connect the socket to the Elasticsearch instance
+.PP
+@ return The result of creating the socket 
+.SS "int HttpSocket::SendRequest (const char * aMethod, const char * aIndexParam, const char * aMsg)"
+
+.PP
+Send a web reuqest to the elastic instance using HTTP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIaMethod\fP The HTTP method of this request (POST, PUT, GET, etc) 
+.br
+\fIaIndexParam\fP the ELK index you are interest in 
+.br
+\fIaMesg\fP The message you would like to send to the ELK instance 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Result from the socket attempt 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Scrutiny from the source code\&.
