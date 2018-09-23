@@ -1,10 +1,3 @@
-/**
-* @brief	 WebRequest class for interfacing with the ELK stack
-*			 via sockets.
-* 
-* @author	Ben Hoffman
-*/
-
 #pragma once
 
 #include <string>		// Use strings until we have a minimum viable product
@@ -16,9 +9,14 @@
 
 #define MAX_HOST_LENGTH 256
 
-
 namespace Scrut
 {
+	/**
+	* @brief	 WebRequest class for interfacing with the ELK stack
+	*			 via sockets.
+	*
+	* @author	Ben Hoffman
+	*/
 	class HttpSocket
 	{
 	public:

@@ -1,24 +1,23 @@
 #pragma once
 
-/**
-* @brief	Provide functionality for the user make simple calls to elasticsearch.
-*			Have the main configuration for the indexing patterns of ELK, what data types
-*			to send, etc.
-*
-* @author	Ben Hoffman
-*/
-
 #include <stdio.h>
 #include "HttpSocket.h"
 
 namespace Scrut
 {
+	/**
+	* @brief	Provide functionality for the user make simple calls to elasticsearch.
+	*			Have the main configuration for the indexing patterns of ELK, what data types
+	*			to send, etc.
+	*
+	* @author	Ben Hoffman
+	*/
 	class Scrutiny
 	{
 
 	public:
 
-		/** Default Constructor*/
+		/** Default Constructor */
 		Scrutiny();
 
 		/** Default destructor */
@@ -30,8 +29,6 @@ namespace Scrut
 		* @return	Status of the request
 		*/
 		int TestRequest();
-
-		
 
 		/**
 		* Get information about an index in elasticsearch
