@@ -86,14 +86,13 @@ int HttpSocket::ConnectSocket()
 int HttpSocket::SendRequest(const char* aMethod, const char* aIndexParam, const char* aMsg)
 {
 	// TODO: Make this a more effecient stream instead of using the std::string
-	assert(strcmp(aMethod, "GET") || strcmp(aMethod, "POST") || strcmp(aMethod, "PUT"));
+	//assert(strcmp(aMethod, "GET") || strcmp(aMethod, "POST") || strcmp(aMethod, "PUT"));
 	
 	// TODO: Investigate if I actually need to reconnect the socket every time a request is made? 
-	ConnectSocket();
+	//ConnectSocket();
 
 	std::string indexParam = aIndexParam;
 	std::string body = aMsg;
-
 
 	std::string post_http = "";
 	post_http += aMethod;	// GET, POST, or PUT
@@ -117,7 +116,7 @@ int HttpSocket::SendRequest(const char* aMethod, const char* aIndexParam, const 
 	post_http += body;
 	post_http += "\r\n";
 
-	printf("\t\n========= REQUEST SENT\n\n%s \t\n========= End request send\n\n", post_http.c_str());
+	//printf("\t\n========= REQUEST SENT\n\n%s \t\n========= End request send\n\n", post_http.c_str());
 
 	
 
@@ -157,7 +156,7 @@ int HttpSocket::SendRequest(const char* aMethod, const char* aIndexParam, const 
 	RecieveBuffer[BytesRecieved] = 0;
 	
 	printf("\n============== Server Response:\n\n%s\n\n=============== End Server Response\n\n",  RecieveBuffer);
-
+	
 
 	return iResult;
 }
