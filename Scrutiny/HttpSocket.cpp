@@ -7,6 +7,7 @@ using namespace Scrut;
 
 HttpSocket::HttpSocket(const char* aHostURL, const char* aHostPort)
 {
+
 	// Copy the host url and port into info
 	strcpy_s(HostURL, strnlen_s(aHostURL, MAX_HOST_LENGTH) + 1, aHostURL);
 	strcpy_s(HostPort, strnlen_s(aHostPort, MAX_HOST_LENGTH) + 1, aHostPort);
@@ -19,6 +20,18 @@ HttpSocket::HttpSocket(const char* aHostURL, const char* aHostPort)
 		printf("WSA Initialization failed. Error Code : %d\n", WSAGetLastError());
 		return;
 	}
+
+	strcpy_s(RequestHeader, MAX_REQUEST_LEN, " HTTP/1.1\r\n");
+	
+	strcat_s(RequestHeader, MAX_REQUEST_LEN, "Content-Type: application/json; charset=UTF-8\r\n");
+	strcat_s(RequestHeader, MAX_REQUEST_LEN, "Content-Encoding: identity\r\n");
+	strcat_s(RequestHeader, MAX_REQUEST_LEN, "User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36\r\n");
+	strcat_s(RequestHeader, MAX_REQUEST_LEN, "Host: ");
+	strcat_s(RequestHeader, MAX_REQUEST_LEN, " HTTP/1.1\r\n");
+	strcat_s(RequestHeader, MAX_REQUEST_LEN, HostURL);
+	strcat_s(RequestHeader, MAX_REQUEST_LEN, ":");
+	strcat_s(RequestHeader, MAX_REQUEST_LEN, HostPort);
+	strcat_s(RequestHeader, MAX_REQUEST_LEN, "\r\n");
 
 }
 
@@ -91,38 +104,26 @@ int HttpSocket::SendRequest(const char* aMethod, const char* aIndexParam, const 
 	// TODO: Investigate if I actually need to reconnect the socket every time a request is made? 
 	ConnectSocket();
 
-	std::string indexParam = aIndexParam;
-	std::string body = aMsg;
-
-	std::string post_http = "";
-	post_http += aMethod;	// GET, POST, or PUT
-	post_http += " " + indexParam;
-	post_http += " HTTP/1.1\r\n";
-	post_http += "Content-Type: application/json; charset=UTF-8\r\n";
-	post_http += "Content-Encoding: identity\r\n";
-	post_http += "Content-Length: ";
-	post_http += std::to_string(body.length());	
-	post_http += "\r\n";
-
-	post_http += "Host: ";
-	post_http += HostURL;
-	post_http += ":";
-	post_http += HostPort;
-	post_http += "\r\n";
-
-	post_http += "User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36\r\n";
-	post_http += "Connection: close\r\n";
-	post_http += "\r\n"; 
-	post_http += body;
-	post_http += "\r\n";
-
-	printf("\t\n========= REQUEST SENT\n\n%s \t\n========= End request send\n\n", post_http.c_str());
-
+	char Request[MAX_REQUEST_LEN];
+	strcpy_s(Request, MAX_REQUEST_LEN, aMethod);
 	
+	strcat_s(Request, MAX_REQUEST_LEN, " ");
+	strcat_s(Request, MAX_REQUEST_LEN, aIndexParam);
+	strcat_s(Request, MAX_REQUEST_LEN, RequestHeader);
+	
+	strcat_s(Request, MAX_REQUEST_LEN, "Content-Length: ");
+	strcat_s(Request, MAX_REQUEST_LEN, std::to_string(strlen(aMsg)).c_str());
+	strcat_s(Request, MAX_REQUEST_LEN, "\r\n");
+	
+	strcat_s(Request, MAX_REQUEST_LEN, ConnectionClose);
+	strcat_s(Request, MAX_REQUEST_LEN, aMsg);
+	strcat_s(Request, MAX_REQUEST_LEN, "\r\n");
+
+	printf("\t\n========= REQUEST SENT\n\n%s \t\n========= End request send\n\n", Request);
 
 	int iResult = 0;
 	// Send an initial buffer
-	iResult = send(Socket, post_http.c_str(), (int)strlen(post_http.c_str()), 0);
+	iResult = send(Socket, Request, (int)strlen(Request), 0);
 	if (iResult == SOCKET_ERROR) 
 	{
 		printf("send failed: %d\n", WSAGetLastError());
@@ -157,7 +158,7 @@ int HttpSocket::SendRequest(const char* aMethod, const char* aIndexParam, const 
 	
 	printf("\n============== Server Response:\n\n%s\n\n=============== End Server Response\n\n",  RecieveBuffer);
 	
-
+	
 	return iResult;
 }
 

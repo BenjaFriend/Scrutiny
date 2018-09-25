@@ -8,6 +8,7 @@
 #pragma comment(lib,"ws2_32.lib") //Winsock Library
 
 #define MAX_HOST_LENGTH 256
+#define MAX_REQUEST_LEN 1024
 
 namespace Scrut
 {
@@ -58,6 +59,11 @@ namespace Scrut
 		/** The host port */
 		char HostPort[8];
 
+		/** Character array for the closing connection */
+		const char * ConnectionClose = "Connection: close\r\n\r\n";
+
+		/** The request header for */
+		char RequestHeader[2048];
 
 	};
 }
