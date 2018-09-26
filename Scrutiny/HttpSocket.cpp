@@ -104,6 +104,8 @@ int HttpSocket::SendRequest(const char* aMethod, const char* aIndexParam, const 
 	// TODO: Investigate if I actually need to reconnect the socket every time a request is made? 
 	ConnectSocket();
 
+	// TODO: Make this more optimal by something with better insertion rates than an Array
+	// Because strcat has to look for the null terminator every time, this is not a linear function
 	char Request[MAX_REQUEST_LEN];
 	strcpy_s(Request, MAX_REQUEST_LEN, aMethod);
 	

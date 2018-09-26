@@ -1,11 +1,11 @@
 #pragma once
 
-/**
-* @brief	Declare the functions that we need to export for the DLL
-*			We need to do this for Unity to use it successfully.
-*
-* @author	Ben Hoffman
-*/
+/// <summary>
+/// Declare the functions that we need to export for the DLL
+/// We need to do this for Unity to use it successfully.
+/// </summary>
+/// <author>Ben Hoffman</author>
+
 
 #ifdef SCRUTINY_EXPORTS
 #define SCRUTINY_API __declspec(dllexport) 

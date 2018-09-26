@@ -23,41 +23,43 @@
 
 namespace Scrut
 {
-	/**
-	* @brief	 WebRequest class for interfacing with the ELK stack
-	*			 via sockets.
-	*
-	* @author	Ben Hoffman
-	*/
+	/// <summary>
+	/// Web request class for interfacing with the ELK stack via sockets.
+	/// </summary>
+	/// <author>Ben Hoffman</author>
 	class HttpSocket
 	{
 	public:
 
-		/** Creates a web request */
+		/// <summary>
+		/// Creates a web request object
+		/// </summary>
+		/// <param name="aHostURL">The Server host URL</param>
+		/// <param name="aHostPort">The server host port</param>
 		HttpSocket(const char* aHostURL, const char* aHostPort);
 
-		/** Destructs web request */
+		/// <summary>
+		/// Clean up sockets
+		/// </summary>
 		~HttpSocket();
-
-		/** 
-		* Connect the socket to the Elasticsearch instance
-		* 
-		* @return	The result of creating the socket
-		**/
-		int ConnectSocket();
-
-		/**
-		* @brief Send a web request to the elastic instance using HTTP
-		* 
-		* @param aMethod	The HTTP method of this request (POST, PUT, GET, etc)
-		* @param aIndexParam		the ELK index you are interest in
-		* @param aMesg		The message you would like to send to the ELK instance
-		* @return			Result from the socket attempt
-		**/
+ 
+		/// <summary>
+		/// Send a web request to the elastic instance using HTTP
+		/// </summary>
+		/// <param name="aMethod">The HTTP method of this request (POST, PUT, GET, etc)</param>
+		/// <param name="aIndexParam">the ELK index you are interest in</param>
+		/// <param name="aMsg">The message you would like to send to the ELK instance</param>
+		/// <returns>Result from the socket attempt</returns>
 		int SendRequest(const char*  aMethod, const char*  aIndexParam, const char* aMsg);
 
 
 	private:
+
+        /// <summary>
+        /// Connect the socket to the Elasticsearch instance
+        /// </summary>
+        /// <returns>The result of creating the socket</returns>
+        int ConnectSocket();
 
 		/** The active socket that will communicate with ELK  */
 		SOCKET Socket = INVALID_SOCKET;

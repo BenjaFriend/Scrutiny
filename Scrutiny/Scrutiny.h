@@ -10,51 +10,47 @@ namespace Scrut
 #define  PUT "PUT"
 #define  XDELETE "XDELETE"
 
-
-	/**
-	* @brief	Provide functionality for the user make simple calls to Elasticsearch.
-	*			Have the main configuration for the indexing patterns of ELK, what data types
-	*			to send, etc.
-	*
-	* @author	Ben Hoffman
-	*/
+	/// <summary>
+	/// Provide functionality for the user make simple calls to Elasticsearch.
+	/// Have the main configuration for the indexing patterns of ELK, what data types
+	/// to send, etc.
+	/// </summary>
+	/// <author>Ben Hoffman</author>
 	class Scrutiny
 	{
 
 	public:
 
-
-
-		/** 
-		* Constructor for a specific server and port 
-		* 
-		* @param aServerAddress		The address of the ELK server to connect with
-		* @param aServerPort		The port of the ELK serve to connect with
-		*/
+		/// <summary>
+		/// Constructor for a specific server and port 
+		/// </summary>
+		/// <param name="aServerAddress">The address of the ELK server to connect with</param>
+		/// <param name="aServerPort">The port of the ELK serve to connect with</param>
 		Scrutiny(const char* aServerAddress, const char* aServerPort);
 
-		/** Default destructor */
+		/// <summary>
+		/// Default destructor; Clean u Sockets
+		/// </summary>
 		~Scrutiny();
 
-		/**
-		* Send a test web socket request to the ELK stack
-		*
-		* @return	Status of the request
-		*/
+		/// <summary>
+		/// Send a test web HTTP socket to to the ELK stack
+		/// </summary>
+		/// <returns>Status of the web request.</returns>
 		int TestRequest();
 
-		/**
-		* Get information about an index in Elasticsearch
-		* 
-		* @param index		The index you would like to receive information about
-		*/
+		/// <summary>
+		/// Get information about an index in Elasticsearch 
+		/// </summary>
+		/// <param name="aIndex">The index you would like to receive information about</param>
+		/// <returns>Status of the web request</returns>
 		int GetIndex(const char* aIndex);
 
-		/**
-		* @param aIndex		The Elasticsearch index to delete
-		* 
-		* @return	Status of the request to the server
-		*/
+		/// <summary>
+		/// The Elasticsearch index to delete
+		/// </summary>
+		/// <param name="aIndex">Status of the request to the server</param>
+		/// <returns>Status of the web request</returns>
 		int DeleteIndex(const char* aIndex);
 
 	private:
