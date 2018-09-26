@@ -99,7 +99,7 @@ int HttpSocket::ConnectSocket()
 int HttpSocket::SendRequest(const char* aMethod, const char* aIndexParam, const char* aMsg)
 {
 	// TODO: Make this a more effecient stream instead of using the std::string
-	assert(strcmp(aMethod, "GET") || strcmp(aMethod, "POST") || strcmp(aMethod, "PUT"));
+	assert(strcmp(aMethod, "GET") || strcmp(aMethod, "POST") || strcmp(aMethod, "PUT") || strcmp(aMethod, "XDELETE"));
 	
 	// TODO: Investigate if I actually need to reconnect the socket every time a request is made? 
 	ConnectSocket();

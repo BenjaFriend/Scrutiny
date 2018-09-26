@@ -1,8 +1,9 @@
-.TH "Scrut::HttpSocket" 3 "Wed Sep 19 2018" "Version 0.01" "Scrutiny" \" -*- nroff -*-
+.TH "Scrut::HttpSocket" 3 "Wed Sep 26 2018" "Version 0.01" "Scrutiny" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-Scrut::HttpSocket
+Scrut::HttpSocket \- WebRequest class for interfacing with the ELK stack via sockets\&.  
+
 .SH SYNOPSIS
 .br
 .PP
@@ -24,7 +25,23 @@ Scrut::HttpSocket
 .RI "int \fBSendRequest\fP (const char *aMethod, const char *aIndexParam, const char *aMsg)"
 .br
 .RI "Send a web reuqest to the elastic instance using HTTP\&. "
+.ti -1c
+.RI "int \fBSendRequestTestBoi\fP (const char *aMethod, const char *aIndexParam, const char *aMsg)"
+.br
+.RI "Send a web reuqest to the elastic instance using HTTP"
 .in -1c
+.SH "Detailed Description"
+.PP 
+WebRequest class for interfacing with the ELK stack via sockets\&. 
+
+
+.PP
+\fBAuthor:\fP
+.RS 4
+Ben Hoffman 
+.RE
+.PP
+
 .SH "Constructor & Destructor Documentation"
 .PP 
 .SS "HttpSocket::HttpSocket (const char * aHostURL, const char * aHostPort)"
@@ -36,7 +53,12 @@ Destructs web req
 .SS "int HttpSocket::ConnectSocket ()"
 Connect the socket to the Elasticsearch instance
 .PP
-@ return The result of creating the socket 
+\fBReturns:\fP
+.RS 4
+The result of creating the socket 
+.RE
+.PP
+
 .SS "int HttpSocket::SendRequest (const char * aMethod, const char * aIndexParam, const char * aMsg)"
 
 .PP
@@ -57,6 +79,21 @@ Result from the socket attempt
 .RE
 .PP
 
+.SS "int Scrut::HttpSocket::SendRequestTestBoi (const char * aMethod, const char * aIndexParam, const char * aMsg)"
+
+.PP
+Send a web reuqest to the elastic instance using HTTP
+.PP
+\fBParameters:\fP
+.RS 4
+\fIaMethod\fP The HTTP method of this request (POST, PUT, GET, etc)
+.br
+\fIaIndexParam\fP the ELK index you are interest in
+.br
+\fIaMesg\fP The message you would like to send to the ELK instance
+.RE
+.PP
+<return>Result from the socket attempt</return> 
 
 .SH "Author"
 .PP 

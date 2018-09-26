@@ -5,8 +5,14 @@
 
 namespace Scrut
 {
+#define  GET "GET"
+#define  POST "POST"
+#define  PUT "PUT"
+#define  XDELETE "XDELETE"
+
+
 	/**
-	* @brief	Provide functionality for the user make simple calls to elasticsearch.
+	* @brief	Provide functionality for the user make simple calls to Elasticsearch.
 	*			Have the main configuration for the indexing patterns of ELK, what data types
 	*			to send, etc.
 	*
@@ -17,8 +23,15 @@ namespace Scrut
 
 	public:
 
-		/** Default Constructor */
-		Scrutiny();
+
+
+		/** 
+		* Constructor for a specific server and port 
+		* 
+		* @param aServerAddress		The address of the ELK server to connect with
+		* @param aServerPort		The port of the ELK serve to connect with
+		*/
+		Scrutiny(const char* aServerAddress, const char* aServerPort);
 
 		/** Default destructor */
 		~Scrutiny();
@@ -31,13 +44,23 @@ namespace Scrut
 		int TestRequest();
 
 		/**
-		* Get information about an index in elasticsearch
+		* Get information about an index in Elasticsearch
 		* 
-		* @param index		The index you would like to recieve information about
+		* @param index		The index you would like to receive information about
 		*/
 		int GetIndex(const char* aIndex);
 
+		/**
+		* @param aIndex		The Elasticsearch index to delete
+		* 
+		* @return	Status of the request to the server
+		*/
+		int DeleteIndex(const char* aIndex);
+
 	private:
+
+		/** private Default Constructor */
+		Scrutiny();
 
 		/** The socket we will use to communicate with the ELK stack */
 		HttpSocket * ELK_Socket = nullptr;

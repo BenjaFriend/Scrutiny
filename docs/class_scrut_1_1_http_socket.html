@@ -96,6 +96,9 @@ $(document).ready(function(){initNavTree('class_scrut_1_1_http_socket.html','');
 </div><!--header-->
 <div class="contents">
 
+<p>WebRequest class for interfacing with the ELK stack via sockets.  
+ <a href="class_scrut_1_1_http_socket.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="_http_socket_8h_source.html">HttpSocket.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -109,8 +112,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a11184ccc93c562f108eccc03684f0c93"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scrut_1_1_http_socket.html#a11184ccc93c562f108eccc03684f0c93">SendRequest</a> (const char *aMethod, const char *aIndexParam, const char *aMsg)</td></tr>
 <tr class="memdesc:a11184ccc93c562f108eccc03684f0c93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a web reuqest to the elastic instance using HTTP.  <a href="#a11184ccc93c562f108eccc03684f0c93">More...</a><br /></td></tr>
 <tr class="separator:a11184ccc93c562f108eccc03684f0c93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5323ce5e45909103c377e00a71c521b2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scrut_1_1_http_socket.html#a5323ce5e45909103c377e00a71c521b2">SendRequestTestBoi</a> (const char *aMethod, const char *aIndexParam, const char *aMsg)</td></tr>
+<tr class="memdesc:a5323ce5e45909103c377e00a71c521b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a web reuqest to the elastic instance using HTTP <a href="#a5323ce5e45909103c377e00a71c521b2">More...</a><br /></td></tr>
+<tr class="separator:a5323ce5e45909103c377e00a71c521b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>WebRequest class for interfacing with the ELK stack via sockets. </p>
+<dl class="section author"><dt>Author</dt><dd>Ben Hoffman </dd></dl>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a9917bd3998b920a5472fa6c8ff279a31"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9917bd3998b920a5472fa6c8ff279a31">&#9670;&nbsp;</a></span>HttpSocket()</h2>
 
@@ -174,7 +183,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Connect the socket to the Elasticsearch instance</p>
-<p>@ return The result of creating the socket </p>
+<dl class="section return"><dt>Returns</dt><dd>The result of creating the socket </dd></dl>
 
 </div>
 </div>
@@ -220,6 +229,51 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Result from the socket attempt </dd></dl>
+
+</div>
+</div>
+<a id="a5323ce5e45909103c377e00a71c521b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5323ce5e45909103c377e00a71c521b2">&#9670;&nbsp;</a></span>SendRequestTestBoi()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Scrut::HttpSocket::SendRequestTestBoi </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>aMethod</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>aIndexParam</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>aMsg</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Send a web reuqest to the elastic instance using HTTP</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">aMethod</td><td>The HTTP method of this request (POST, PUT, GET, etc)</td></tr>
+    <tr><td class="paramname">aIndexParam</td><td>the ELK index you are interest in</td></tr>
+    <tr><td class="paramname">aMesg</td><td>The message you would like to send to the ELK instance</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt;return&gt;Result from the socket attempt&lt;/return&gt; </p>
 
 </div>
 </div>

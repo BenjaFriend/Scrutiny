@@ -8,6 +8,7 @@ var searchData=
   ['scrutinyexports_2ecpp',['ScrutinyExports.cpp',['../_scrutiny_exports_8cpp.html',1,'']]],
   ['scurintyexports_2eh',['ScurintyExports.h',['../_scurinty_exports_8h.html',1,'']]],
   ['sendrequest',['SendRequest',['../class_scrut_1_1_http_socket.html#a11184ccc93c562f108eccc03684f0c93',1,'Scrut::HttpSocket']]],
+  ['sendrequesttestboi',['SendRequestTestBoi',['../class_scrut_1_1_http_socket.html#a5323ce5e45909103c377e00a71c521b2',1,'Scrut::HttpSocket']]],
   ['stdafx_2ecpp',['stdafx.cpp',['../stdafx_8cpp.html',1,'']]],
   ['stdafx_2eh',['stdafx.h',['../stdafx_8h.html',1,'']]]
 ];

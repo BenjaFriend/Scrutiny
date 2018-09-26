@@ -97,28 +97,26 @@ $(document).ready(function(){initNavTree('_http_socket_8h.html','');});
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;string&gt;</code><br />
-<code>#include &lt;assert.h&gt;</code><br />
-<code>#include &lt;WinSock2.h&gt;</code><br />
-<code>#include &lt;Ws2tcpip.h&gt;</code><br />
 </div>
 <p><a href="_http_socket_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scrut_1_1_http_socket.html">Scrut::HttpSocket</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">WebRequest class for interfacing with the ELK stack via sockets.  <a href="class_scrut_1_1_http_socket.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespace_scrut"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_scrut.html">Scrut</a></td></tr>
-<tr class="memdesc:namespace_scrut"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provide functionality for the user make simple calls to elasticsearch. Have the main configuration for the indexing patterns of ELK, what data types to send, etc. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a78eaf733bc7d2ffc706844087ab3856f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_http_socket_8h.html#a78eaf733bc7d2ffc706844087ab3856f">MAX_HOST_LENGTH</a>&#160;&#160;&#160;256</td></tr>
-<tr class="memdesc:a78eaf733bc7d2ffc706844087ab3856f"><td class="mdescLeft">&#160;</td><td class="mdescRight">WebRequest class for interfacing with the ELK stack via sockets.  <a href="#a78eaf733bc7d2ffc706844087ab3856f">More...</a><br /></td></tr>
 <tr class="separator:a78eaf733bc7d2ffc706844087ab3856f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdc9abf702f0936e29a479d29309bc13"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_http_socket_8h.html#afdc9abf702f0936e29a479d29309bc13">MAX_REQUEST_LEN</a>&#160;&#160;&#160;1024</td></tr>
+<tr class="separator:afdc9abf702f0936e29a479d29309bc13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a78eaf733bc7d2ffc706844087ab3856f"></a>
@@ -133,8 +131,19 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>WebRequest class for interfacing with the ELK stack via sockets. </p>
-<dl class="section author"><dt>Author</dt><dd>Ben Hoffman </dd></dl>
+</div>
+</div>
+<a id="afdc9abf702f0936e29a479d29309bc13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdc9abf702f0936e29a479d29309bc13">&#9670;&nbsp;</a></span>MAX_REQUEST_LEN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAX_REQUEST_LEN&#160;&#160;&#160;1024</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
