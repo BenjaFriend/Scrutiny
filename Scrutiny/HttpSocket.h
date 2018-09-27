@@ -79,5 +79,15 @@ namespace Scrut
 		/** The request header for */
 		char RequestHeader[2048];
 
+        /// <summary>
+        /// A str cat function that will NOT check for the null terminator from
+        /// the source char *
+        /// From Joel on Software: https://www.joelonsoftware.com/2001/12/11/back-to-basics/
+        /// </summary>
+        /// <param name="aDest">The destination char *</param>
+        /// <param name="aSrc">Soruce char* to get the data from</param>
+        /// <returns>The new end position of the destination char*</returns>
+        char* StrCat_NoCheck( char* aDest, const char* aSrc );
+
 	};
 }

@@ -107,19 +107,22 @@ int HttpSocket::SendRequest(const char* aMethod, const char* aIndexParam, const 
 	// TODO: Make this more optimal by something with better insertion rates than an Array
 	// Because strcat has to look for the null terminator every time, this is not a linear function
 	char Request[MAX_REQUEST_LEN];
-	strcpy_s(Request, MAX_REQUEST_LEN, aMethod);
-	
-	strcat_s(Request, MAX_REQUEST_LEN, " ");
-	strcat_s(Request, MAX_REQUEST_LEN, aIndexParam);
-	strcat_s(Request, MAX_REQUEST_LEN, RequestHeader);
-	
-	strcat_s(Request, MAX_REQUEST_LEN, "Content-Length: ");
-	strcat_s(Request, MAX_REQUEST_LEN, std::to_string(strlen(aMsg)).c_str());
-	strcat_s(Request, MAX_REQUEST_LEN, "\r\n");
-	
-	strcat_s(Request, MAX_REQUEST_LEN, ConnectionClose);
-	strcat_s(Request, MAX_REQUEST_LEN, aMsg);
-	strcat_s(Request, MAX_REQUEST_LEN, "\r\n");
+    char* reqPtr = Request;
+
+    Request[ 0 ] = '\0';
+    reqPtr = StrCat_NoCheck( reqPtr, aMethod );
+    
+    reqPtr = StrCat_NoCheck( reqPtr, " " );
+    reqPtr = StrCat_NoCheck( reqPtr, aIndexParam );
+    reqPtr = StrCat_NoCheck( reqPtr, RequestHeader );
+    
+    reqPtr = StrCat_NoCheck( reqPtr, "Content-Length: " );
+    reqPtr = StrCat_NoCheck( reqPtr, std::to_string( strlen( aMsg ) ).c_str() );
+    reqPtr = StrCat_NoCheck( reqPtr, "\r\n" );
+    
+    reqPtr = StrCat_NoCheck( reqPtr, ConnectionClose );
+    reqPtr = StrCat_NoCheck( reqPtr, aMsg );
+    reqPtr = StrCat_NoCheck( reqPtr, "\r\n" );
 
 	printf("\t\n========= REQUEST SENT\n\n%s \t\n========= End request send\n\n", Request);
 
@@ -143,19 +146,19 @@ int HttpSocket::SendRequest(const char* aMethod, const char* aIndexParam, const 
 
 	do 
 	{
-		// recieve data from the server's response
-		// Using this socket, put the data we are reciving into the RecieveBuffer
+		// receive data from the server's response
+		// Using this socket, put the data we are receiving into the RecieveBuffer
 		// until you get to this buffer length. 
 		iResult = recv(Socket, RecieveBuffer, DEFAULT_BUFLEN, MSG_WAITALL);
 
-		// Keep track of how much data we are recieing so that we can add a null terminator
+		// Keep track of how much data we are receive so that we can add a null terminator
 		BytesRecieved += iResult;
 
 	} while (iResult > 0);	// While we are getting a response from the server
 	
-	printf("\n\t\t ** Bytes Recieved: %d\n\n", BytesRecieved);
+	printf("\n\t\t ** Bytes Received: %d\n\n", BytesRecieved);
 
-	// Add a null terminator to the end of the data we recieved
+	// Add a null terminator to the end of the data we received
 	RecieveBuffer[BytesRecieved] = 0;
 	
 	printf("\n============== Server Response:\n\n%s\n\n=============== End Server Response\n\n",  RecieveBuffer);
@@ -172,4 +175,11 @@ void HttpSocket::Disconnect()
 	}
 
 	WSACleanup();
+}
+
+char * Scrut::HttpSocket::StrCat_NoCheck( char * aDest, const char * aSrc )
+{
+    while ( *aDest ) aDest++;
+    while ( *aDest++ = *aSrc++ );
+    return --aDest;
 }
