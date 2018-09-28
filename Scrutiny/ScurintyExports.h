@@ -29,4 +29,7 @@ extern "C"
 
 	SCRUTINY_API int DeleteIndex(Scrut::Scrutiny* Impl, const char* aIndex);
 
+    SCRUTINY_API char* GetDateTime( Scrut::Scrutiny* Impl );
+
+
 }

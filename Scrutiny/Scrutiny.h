@@ -2,6 +2,8 @@
 
 #include <stdio.h>
 #include "HttpSocket.h"
+#include <ctime>
+#include <time.h>
 
 namespace Scrut
 {
@@ -53,6 +55,13 @@ namespace Scrut
 		/// <returns>Status of the web request</returns>
 		int DeleteIndex(const char* aIndex);
 
+        /// <summary>
+        /// Get the current time format that is proper for Elasticsearch
+        /// </summary>
+        /// <returns>timestamp formatted in a way to be reported for ELK</returns>
+        char* GetCurrentTimeFormat();
+
+
 	private:
 
 		/** private Default Constructor */
@@ -64,5 +73,6 @@ namespace Scrut
 		/** The index that the user would like to report to */
 		char* CurrentIndex = nullptr;
 
+        
 	};
 }

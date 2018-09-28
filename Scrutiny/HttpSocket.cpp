@@ -112,6 +112,8 @@ int HttpSocket::SendRequest(const char* aMethod, const char* aIndexParam, const 
     Request[ 0 ] = '\0';
     reqPtr = StrCat_NoCheck( reqPtr, aMethod );
     
+    
+
     reqPtr = StrCat_NoCheck( reqPtr, " " );
     reqPtr = StrCat_NoCheck( reqPtr, aIndexParam );
     reqPtr = StrCat_NoCheck( reqPtr, RequestHeader );
