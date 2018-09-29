@@ -33,6 +33,8 @@ HttpSocket::HttpSocket(const char* aHostURL, const char* aHostPort)
 	strcat_s(RequestHeader, MAX_REQUEST_LEN, HostPort);
 	strcat_s(RequestHeader, MAX_REQUEST_LEN, "\r\n");
 
+    ConnectSocket();
+
 }
 
 HttpSocket::~HttpSocket()
@@ -101,19 +103,16 @@ int HttpSocket::SendRequest(const char* aMethod, const char* aIndexParam, const 
 	// TODO: Make this a more effecient stream instead of using the std::string
 	assert(strcmp(aMethod, "GET") || strcmp(aMethod, "POST") || strcmp(aMethod, "PUT") || strcmp(aMethod, "XDELETE"));
 	
-	// TODO: Investigate if I actually need to reconnect the socket every time a request is made? 
-	ConnectSocket();
-
 	// TODO: Make this more optimal by something with better insertion rates than an Array
 	// Because strcat has to look for the null terminator every time, this is not a linear function
 	char Request[MAX_REQUEST_LEN];
     char* reqPtr = Request;
 
     Request[ 0 ] = '\0';
+    // TODO: We can probably provide a cached option for this that will make 
+    // the the header already created
     reqPtr = StrCat_NoCheck( reqPtr, aMethod );
     
-    
-
     reqPtr = StrCat_NoCheck( reqPtr, " " );
     reqPtr = StrCat_NoCheck( reqPtr, aIndexParam );
     reqPtr = StrCat_NoCheck( reqPtr, RequestHeader );
@@ -126,7 +125,10 @@ int HttpSocket::SendRequest(const char* aMethod, const char* aIndexParam, const 
     reqPtr = StrCat_NoCheck( reqPtr, aMsg );
     reqPtr = StrCat_NoCheck( reqPtr, "\r\n" );
 
-	printf("\t\n========= REQUEST SENT\n\n%s \t\n========= End request send\n\n", Request);
+#ifdef _DEBUG
+    printf( "\t\n========= REQUEST SENT\n\n%s \t\n========= End request send\n\n", Request );
+#endif // DEBUG
+
 
 	int iResult = 0;
 	// Send an initial buffer
@@ -137,36 +139,47 @@ int HttpSocket::SendRequest(const char* aMethod, const char* aIndexParam, const 
 		Disconnect();
 		return 1;
 	}
+#ifdef _DEBUG
+    printf( "\t\t ** Bytes Sent: %ld\n", iResult );
+#endif // DEBUG
 
-	printf("\t\t ** Bytes Sent: %ld\n", iResult);
 
-	// Receive data until the server closes the connection
-	int BytesRecieved = 0;
-	char RecieveBuffer[DEFAULT_BUFLEN];
+    // I don't _acutally_ need to be waiting for a response from the server for
+    // just sending analytics. This will be a lot more preform ant than 
+    // waiting for the response 
 
-	ZeroMemory(&RecieveBuffer, sizeof(RecieveBuffer));
-
-	do 
-	{
-		// receive data from the server's response
-		// Using this socket, put the data we are receiving into the RecieveBuffer
-		// until you get to this buffer length. 
-		iResult = recv(Socket, RecieveBuffer, DEFAULT_BUFLEN, MSG_WAITALL);
-
-		// Keep track of how much data we are receive so that we can add a null terminator
-		BytesRecieved += iResult;
-
-	} while (iResult > 0);	// While we are getting a response from the server
-	
-	printf("\n\t\t ** Bytes Received: %d\n\n", BytesRecieved);
-
-	// Add a null terminator to the end of the data we received
-	RecieveBuffer[BytesRecieved] = 0;
-	
-	printf("\n============== Server Response:\n\n%s\n\n=============== End Server Response\n\n",  RecieveBuffer);
-	
-	
 	return iResult;
+}
+
+int Scrut::HttpSocket::RecvData()
+{
+    int iResult = 0;
+
+    // Receive data until the server closes the connection
+    int BytesRecieved = 0;
+    char RecieveBuffer[DEFAULT_BUFLEN];
+
+    ZeroMemory(&RecieveBuffer, sizeof(RecieveBuffer));
+
+    do
+    {
+        // receive data from the server's response
+        // Using this socket, put the data we are receiving into the RecieveBuffer
+        // until you get to this buffer length.
+        iResult = recv(Socket, RecieveBuffer, DEFAULT_BUFLEN, MSG_WAITALL);
+
+        // Keep track of how much data we are receive so that we can add a null terminator
+        BytesRecieved += iResult;
+
+    } while (iResult > 0);	// While we are getting a response from the server
+
+    printf("\n\t\t ** Bytes Received: %d\n\n", BytesRecieved);
+
+    // Add a null terminator to the end of the data we received
+    RecieveBuffer[BytesRecieved] = 0;
+
+    printf("\n============== Server Response:\n\n%s\n\n=============== End Server Response\n\n",  RecieveBuffer);
+    
 }
 
 void HttpSocket::Disconnect()

@@ -52,6 +52,11 @@ namespace Scrut
 		/// <returns>Result from the socket attempt</returns>
 		int SendRequest(const char*  aMethod, const char*  aIndexParam, const char* aMsg);
 
+        /// <summary>
+        /// receive data from the server until we get a response of 0
+        /// </summary>
+        /// <returns>Result of recv from the socket</returns>
+        int RecvData();
 
 	private:
 
