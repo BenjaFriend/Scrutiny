@@ -14,6 +14,7 @@ namespace Scrut
 #define PUT "PUT"
 #define XDELETE "XDELETE"
 #define REQUEST_LEN 1024
+#define TIME_BUF_SIZE 64
 
 	/// <summary>
 	/// Provide functionality for the user make simple calls to Elasticsearch.
@@ -49,20 +50,20 @@ namespace Scrut
 		/// </summary>
 		/// <param name="aIndex">The index you would like to receive information about</param>
 		/// <returns>Status of the web request</returns>
-		int GetIndex( const char* aIndex );
+		int GetIndex( const char* aIndex ) const;
 
 		/// <summary>
 		/// The Elasticsearch index to delete
 		/// </summary>
 		/// <param name="aIndex">Status of the request to the server</param>
 		/// <returns>Status of the web request</returns>
-		int DeleteIndex( const char* aIndex );
+		int DeleteIndex( const char* aIndex ) const;
 
         /// <summary>
         /// Get the current time format that is proper for Elasticsearch
         /// </summary>
         /// <returns>timestamp formatted in a way to be reported for ELK</returns>
-        char* GetCurrentTimeFormat( char* aOutArray );
+        char* AppendCurrentTimeFormat( char* aOutArray );
 
 	private:
 
@@ -76,6 +77,6 @@ namespace Scrut
 		char* CurrentIndex = nullptr;
 
         /** The current request buffer */
-        char CurrentRequest[ REQUEST_LEN ];
+        char* CurrentRequest = nullptr;
 	};
 }
