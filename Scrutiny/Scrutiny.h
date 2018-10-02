@@ -43,32 +43,34 @@ namespace Scrut
 		/// Send a test web HTTP socket to to the ELK stack
 		/// </summary>
 		/// <returns>Status of the web request.</returns>
-		int TestRequest();     
+        const int TestRequest();
 
 		/// <summary>
 		/// Get information about an index in Elasticsearch 
 		/// </summary>
 		/// <param name="aIndex">The index you would like to receive information about</param>
 		/// <returns>Status of the web request</returns>
-		int GetIndex( const char* aIndex ) const;
+		const int GetIndex( const char* aIndex ) const;
 
 		/// <summary>
 		/// The Elasticsearch index to delete
 		/// </summary>
 		/// <param name="aIndex">Status of the request to the server</param>
 		/// <returns>Status of the web request</returns>
-		int DeleteIndex( const char* aIndex ) const;
+		const int DeleteIndex( const char* aIndex ) const;
 
         /// <summary>
         /// Get the current time format that is proper for Elasticsearch
         /// </summary>
         /// <returns>timestamp formatted in a way to be reported for ELK</returns>
-        char* AppendCurrentTimeFormat( char* aOutArray );
+        const char* AppendCurrentTimeFormat( char* aOutArray );
+
+        /////////////////////////////////////////////////////////////////
+        // Accessors
+
+        const char* GetCurrentIndex() const;
 
 	private:
-
-		/** private Default Constructor */
-		Scrutiny();
 
 		/** The socket we will use to communicate with the ELK stack */
 		HttpSocket * ELK_Socket = nullptr;
