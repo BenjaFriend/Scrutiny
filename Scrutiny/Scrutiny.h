@@ -68,6 +68,7 @@ namespace Scrut
         /////////////////////////////////////////////////////////////////
         // Accessors
 
+        /** Return the current ELK index that is being reported to */
         const char* GetCurrentIndex() const;
 
 	private:

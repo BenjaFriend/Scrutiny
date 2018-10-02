@@ -43,7 +43,7 @@ HttpSocket::~HttpSocket()
 	Disconnect();
 }
 
-int HttpSocket::ConnectSocket()
+const int HttpSocket::ConnectSocket()
 {
 	int iResult = 0;
 
@@ -98,7 +98,7 @@ int HttpSocket::ConnectSocket()
 	return iResult;
 }
 
-int HttpSocket::SendRequest(const char* aMethod, const char* aIndexParam, const char* aMsg)
+const int HttpSocket::SendRequest(const char* aMethod, const char* aIndexParam, const char* aMsg)
 {
 	// TODO: Make this a more effecient stream instead of using the std::string
 	assert(strcmp(aMethod, "GET") || strcmp(aMethod, "POST") || strcmp(aMethod, "PUT") || strcmp(aMethod, "XDELETE"));
@@ -125,7 +125,7 @@ int HttpSocket::SendRequest(const char* aMethod, const char* aIndexParam, const 
     reqPtr = StrCat_NoCheck( reqPtr, aMsg );
     reqPtr = StrCat_NoCheck( reqPtr, "\r\n" );
 
-#ifdef _DEBUG
+#if defined(DEBUG) | defined(_DEBUG)
     printf( "\t\n========= REQUEST SENT\n\n%s \t\n========= End request send\n\n", Request );
 #endif // DEBUG
 
@@ -139,7 +139,7 @@ int HttpSocket::SendRequest(const char* aMethod, const char* aIndexParam, const 
 		Disconnect();
 		return 1;
 	}
-#ifdef _DEBUG
+#if defined(DEBUG) | defined(_DEBUG)
     printf( "\t\t ** Bytes Sent: %ld\n", iResult );
 #endif // DEBUG
 
@@ -151,7 +151,7 @@ int HttpSocket::SendRequest(const char* aMethod, const char* aIndexParam, const 
 	return iResult;
 }
 
-int Scrut::HttpSocket::RecvData()
+const int Scrut::HttpSocket::RecvData()
 {
     int iResult = 0;
 
@@ -178,7 +178,9 @@ int Scrut::HttpSocket::RecvData()
     // Add a null terminator to the end of the data we received
     RecieveBuffer[BytesRecieved] = 0;
 
+#if defined(DEBUG) | defined(_DEBUG)
     printf("\n============== Server Response:\n\n%s\n\n=============== End Server Response\n\n",  RecieveBuffer);
+#endif
     return iResult;
 }
 
@@ -197,4 +199,17 @@ char * Scrut::HttpSocket::StrCat_NoCheck( char * aDest, const char * aSrc )
     while ( *aDest ) aDest++;
     while ( *aDest++ = *aSrc++ );
     return --aDest;
+}
+
+/////////////////////////////////////////////////////////////////
+// Accessors
+
+const char* Scrut::HttpSocket::GetHostPort() const
+{
+    return HostPort;
+}
+
+const char* Scrut::HttpSocket::GetHostURL() const
+{
+    return HostURL;
 }

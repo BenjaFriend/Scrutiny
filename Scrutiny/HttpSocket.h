@@ -50,21 +50,30 @@ namespace Scrut
 		/// <param name="aIndexParam">the ELK index you are interest in</param>
 		/// <param name="aMsg">The message you would like to send to the ELK instance</param>
 		/// <returns>Result from the socket attempt</returns>
-		int SendRequest(const char*  aMethod, const char*  aIndexParam, const char* aMsg);
+		const int SendRequest(const char*  aMethod, const char*  aIndexParam, const char* aMsg);
 
         /// <summary>
         /// receive data from the server until we get a response of 0
         /// </summary>
         /// <returns>Result of recv from the socket</returns>
-        int RecvData();
+        const int RecvData();
 
+        /////////////////////////////////////////////////////////////////
+        // Accessors
+
+        /** Return the current host port being used by the socket */
+        const char* GetHostPort() const;
+
+        /** Return the current host URL being used by the socket */
+        const char* GetHostURL() const;
+        
 	private:
 
         /// <summary>
         /// Connect the socket to the Elasticsearch instance
         /// </summary>
         /// <returns>The result of creating the socket</returns>
-        int ConnectSocket();
+        const int ConnectSocket();
 
 		/** The active socket that will communicate with ELK  */
 		SOCKET Socket = INVALID_SOCKET;
