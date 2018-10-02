@@ -37,9 +37,4 @@ extern "C"
 	{
 		return Impl->DeleteIndex(aIndex);
 	}
-
-    char* GetDateTime( Scrut::Scrutiny* Impl )
-    {
-        return Impl->GetCurrentTimeFormat();
-    }
 }

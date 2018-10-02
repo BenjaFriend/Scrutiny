@@ -179,7 +179,7 @@ int Scrut::HttpSocket::RecvData()
     RecieveBuffer[BytesRecieved] = 0;
 
     printf("\n============== Server Response:\n\n%s\n\n=============== End Server Response\n\n",  RecieveBuffer);
-    
+    return iResult;
 }
 
 void HttpSocket::Disconnect()
