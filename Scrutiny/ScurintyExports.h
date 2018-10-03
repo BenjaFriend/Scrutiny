@@ -18,15 +18,24 @@
 
 extern "C"
 {
+ 
+    SCRUTINY_API Scrut::Scrutiny* CreateScrutiny( const char* aServerAddress, const char* aServerPort );
 
-	SCRUTINY_API Scrut::Scrutiny* CreateScrutiny(const char* aServerAddress, const char* aServerPort);
+    SCRUTINY_API void DestroyScrutiny( Scrut::Scrutiny* Impl );
 
-	SCRUTINY_API void DestroyScrutiny(Scrut::Scrutiny* Impl);
+    SCRUTINY_API const int TestRequest( Scrut::Scrutiny* Impl );
 
-	SCRUTINY_API int TestRequest(Scrut::Scrutiny* Impl);
+    SCRUTINY_API const int GetIndex( Scrut::Scrutiny* Impl, const char* aIndex );
 
-	SCRUTINY_API int GetIndex(Scrut::Scrutiny* Impl, const char* aIndex);
+    SCRUTINY_API const int DeleteIndex( Scrut::Scrutiny* Impl, const char* aIndex );
 
-	SCRUTINY_API int DeleteIndex(Scrut::Scrutiny* Impl, const char* aIndex);
+    ////////////////////////////////////////////
+    // Reporting methods
+
+    SCRUTINY_API void StartReport( Scrut::Scrutiny* Impl );
+    SCRUTINY_API const int SendReport( Scrut::Scrutiny* Impl );
+
+    SCRUTINY_API void ReportFloat( Scrut::Scrutiny* Impl, const char* aKey, float aValue );
+    SCRUTINY_API void ReportCharacter( Scrut::Scrutiny* Impl, const char* aKey, const char* aValue );
 
 }

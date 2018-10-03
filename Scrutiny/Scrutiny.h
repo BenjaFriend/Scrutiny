@@ -9,6 +9,7 @@
 
 namespace Scrut
 {
+
 #define GET "GET"
 #define POST "POST"
 #define PUT "PUT"
@@ -44,6 +45,18 @@ namespace Scrut
 		/// </summary>
 		/// <returns>Status of the web request.</returns>
         const int TestRequest();
+
+        /// <summary>
+        /// Start a report and configure the basic headers for the request.
+        /// Adds the current time to the request
+        /// </summary>
+        void StartReport();
+
+        /// <summary>
+        /// Add the closing tag to the report and send it to ELK with
+        /// a POST request. 
+        /// </summary>
+        const int SendReport();
 
         /// <summary>
         /// Adds this float to the message being sent to Elasticsearch
@@ -86,6 +99,9 @@ namespace Scrut
 
         /** Return the current ELK index that is being reported to */
         const char* GetCurrentIndex() const;
+
+        /** Return the current request that is being built, or last sent. */
+        const char* GetCurrentRequest() const;
 
 	private:
 
