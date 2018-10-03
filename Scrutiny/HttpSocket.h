@@ -8,7 +8,7 @@
 	#include <WinSock2.h>	// WinSock
 	#include <Ws2tcpip.h>
 
-	#pragma comment(lib,"ws2_32.lib") //Winsock Library
+	#pragma comment(lib,"ws2_32.lib") // Winsock Library
 
 #elif defined(__linux__)
 
@@ -20,6 +20,7 @@
 
 #define MAX_HOST_LENGTH 256
 #define MAX_REQUEST_LEN 1024
+#define MAX_RECV_BUF_LEN 1024
 
 namespace Scrut
 {
@@ -90,8 +91,8 @@ namespace Scrut
 		/** Character array for the closing connection */
 		const char * ConnectionClose = "Connection: close\r\n\r\n";
 
-		/** The request header for */
-		char RequestHeader[2048];
+		/** The request header for the HTTP request */
+		char RequestHeader[ MAX_REQUEST_LEN ];
 
         /// <summary>
         /// A str cat function that will NOT check for the null terminator from

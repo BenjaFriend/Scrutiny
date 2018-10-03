@@ -1,8 +1,6 @@
 #include "stdafx.h"
 #include "HttpSocket.h"
 
-#define DEFAULT_BUFLEN 1024
-
 using namespace Scrut;
 
 HttpSocket::HttpSocket(const char* aHostURL, const char* aHostPort)
@@ -100,17 +98,13 @@ const int HttpSocket::ConnectSocket()
 
 const int HttpSocket::SendRequest(const char* aMethod, const char* aIndexParam, const char* aMsg)
 {
-	// TODO: Make this a more effecient stream instead of using the std::string
 	assert(strcmp(aMethod, "GET") || strcmp(aMethod, "POST") || strcmp(aMethod, "PUT") || strcmp(aMethod, "XDELETE"));
 	
-	// TODO: Make this more optimal by something with better insertion rates than an Array
-	// Because strcat has to look for the null terminator every time, this is not a linear function
 	char Request[MAX_REQUEST_LEN];
     char* reqPtr = Request;
 
     Request[ 0 ] = '\0';
-    // TODO: We can probably provide a cached option for this that will make 
-    // the the header already created
+
     reqPtr = StrCat_NoCheck( reqPtr, aMethod );
     
     reqPtr = StrCat_NoCheck( reqPtr, " " );
@@ -125,12 +119,12 @@ const int HttpSocket::SendRequest(const char* aMethod, const char* aIndexParam, 
     reqPtr = StrCat_NoCheck( reqPtr, aMsg );
     reqPtr = StrCat_NoCheck( reqPtr, "\r\n" );
 
+    int iResult = 0;
+
 #if defined(DEBUG) | defined(_DEBUG)
     printf( "\t\n========= REQUEST SENT\n\n%s \t\n========= End request send\n\n", Request );
 #endif // DEBUG
-
-
-	int iResult = 0;
+	
 	// Send an initial buffer
 	iResult = send(Socket, Request, (int)strlen(Request), 0);
 	if (iResult == SOCKET_ERROR) 
@@ -139,6 +133,7 @@ const int HttpSocket::SendRequest(const char* aMethod, const char* aIndexParam, 
 		Disconnect();
 		return 1;
 	}
+
 #if defined(DEBUG) | defined(_DEBUG)
     printf( "\t\t ** Bytes Sent: %ld\n", iResult );
 #endif // DEBUG
@@ -147,7 +142,7 @@ const int HttpSocket::SendRequest(const char* aMethod, const char* aIndexParam, 
     // I don't _acutally_ need to be waiting for a response from the server for
     // just sending analytics. This will be a lot more preform ant than 
     // waiting for the response 
-
+    
 	return iResult;
 }
 
@@ -157,7 +152,7 @@ const int Scrut::HttpSocket::RecvData()
 
     // Receive data until the server closes the connection
     int BytesRecieved = 0;
-    char RecieveBuffer[DEFAULT_BUFLEN];
+    char RecieveBuffer[ MAX_RECV_BUF_LEN ];
 
     ZeroMemory(&RecieveBuffer, sizeof(RecieveBuffer));
 
@@ -166,14 +161,16 @@ const int Scrut::HttpSocket::RecvData()
         // receive data from the server's response
         // Using this socket, put the data we are receiving into the RecieveBuffer
         // until you get to this buffer length.
-        iResult = recv(Socket, RecieveBuffer, DEFAULT_BUFLEN, MSG_WAITALL);
+        iResult = recv(Socket, RecieveBuffer, MAX_RECV_BUF_LEN, MSG_WAITALL);
 
         // Keep track of how much data we are receive so that we can add a null terminator
         BytesRecieved += iResult;
 
     } while (iResult > 0);	// While we are getting a response from the server
 
+#if defined(DEBUG) | defined(_DEBUG)
     printf("\n\t\t ** Bytes Received: %d\n\n", BytesRecieved);
+#endif
 
     // Add a null terminator to the end of the data we received
     RecieveBuffer[BytesRecieved] = 0;
@@ -194,6 +191,8 @@ void HttpSocket::Disconnect()
 	WSACleanup();
 }
 
+// Because strcat has to look for the null terminator every time, this is not a linear function
+// This StrCat_NoCheck function is a linear function
 char * Scrut::HttpSocket::StrCat_NoCheck( char * aDest, const char * aSrc )
 {
     while ( *aDest ) aDest++;
