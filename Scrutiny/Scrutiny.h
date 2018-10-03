@@ -3,9 +3,9 @@
 #include <stdio.h>
 #include "HttpSocket.h"
 #include <ctime>
-#include <time.h>
-#include <iostream>
 #include <stdlib.h>
+#include <stdio.h>  
+
 
 namespace Scrut
 {
@@ -44,6 +44,22 @@ namespace Scrut
 		/// </summary>
 		/// <returns>Status of the web request.</returns>
         const int TestRequest();
+
+        /// <summary>
+        /// Adds this float to the message being sent to Elasticsearch
+        /// </summary>
+        /// <param name="aKey">The name of this float value</param>
+        /// <param name="aValue">The float value to report</param>
+        /// <returns>The status of the request</returns>
+        void ReportFloat( const char* aKey, float aValue );
+
+        /// <summary>
+        /// Append a report of a character with the given key values pair to
+        /// the current request
+        /// </summary>
+        /// <param name="aKey">The name of the key in Elasticsearch</param>
+        /// <param name="aVal">character value</param>
+        void ReportCharacter( const char* aKey, const char* aVal );
 
 		/// <summary>
 		/// Get information about an index in Elasticsearch 
