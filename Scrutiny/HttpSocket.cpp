@@ -96,11 +96,13 @@ const int HttpSocket::ConnectSocket()
 	return iResult;
 }
 
-const int HttpSocket::SendRequest(const char* aMethod, const char* aIndexParam, const char* aMsg)
+const int HttpSocket::SendRequest( const char* aMethod, const char* aIndexParam, const char* aMsg )
 {
 	assert(strcmp(aMethod, "GET") || strcmp(aMethod, "POST") || strcmp(aMethod, "PUT") || strcmp(aMethod, "XDELETE"));
 	
-	char Request[MAX_REQUEST_LEN];
+    ConnectSocket();
+
+	char Request[ MAX_REQUEST_LEN ];
     char* reqPtr = Request;
 
     Request[ 0 ] = '\0';
@@ -126,10 +128,10 @@ const int HttpSocket::SendRequest(const char* aMethod, const char* aIndexParam, 
 #endif // DEBUG
 	
 	// Send an initial buffer
-	iResult = send(Socket, Request, (int)strlen(Request), 0);
-	if (iResult == SOCKET_ERROR) 
+	iResult = send( Socket, Request, ( int )strlen( Request ), 0 );
+	if ( iResult == SOCKET_ERROR ) 
 	{
-		printf("send failed: %d\n", WSAGetLastError());
+		printf( "send failed: %d\n", WSAGetLastError() );
 		Disconnect();
 		return 1;
 	}
@@ -143,6 +145,8 @@ const int HttpSocket::SendRequest(const char* aMethod, const char* aIndexParam, 
     // just sending analytics. This will be a lot more preform ant than 
     // waiting for the response 
     
+    RecvData();
+
 	return iResult;
 }
 
@@ -154,26 +158,26 @@ const int Scrut::HttpSocket::RecvData()
     int BytesRecieved = 0;
     char RecieveBuffer[ MAX_RECV_BUF_LEN ];
 
-    ZeroMemory(&RecieveBuffer, sizeof(RecieveBuffer));
+    ZeroMemory( &RecieveBuffer, sizeof( RecieveBuffer ) );
 
     do
     {
         // receive data from the server's response
         // Using this socket, put the data we are receiving into the RecieveBuffer
         // until you get to this buffer length.
-        iResult = recv(Socket, RecieveBuffer, MAX_RECV_BUF_LEN, MSG_WAITALL);
+        iResult = recv( Socket, RecieveBuffer, MAX_RECV_BUF_LEN, MSG_WAITALL );
 
         // Keep track of how much data we are receive so that we can add a null terminator
         BytesRecieved += iResult;
 
-    } while (iResult > 0);	// While we are getting a response from the server
+    } while ( iResult > 0 );	// While we are getting a response from the server
 
 #if defined(DEBUG) | defined(_DEBUG)
     printf("\n\t\t ** Bytes Received: %d\n\n", BytesRecieved);
 #endif
 
     // Add a null terminator to the end of the data we received
-    RecieveBuffer[BytesRecieved] = 0;
+    RecieveBuffer[ BytesRecieved ] = 0;
 
 #if defined(DEBUG) | defined(_DEBUG)
     printf("\n============== Server Response:\n\n%s\n\n=============== End Server Response\n\n",  RecieveBuffer);
