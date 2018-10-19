@@ -1,10 +1,10 @@
 #pragma once
 
-#include <stdio.h>
+#include "stdafx.h"
+
 #include "HttpSocket.h"
 #include <ctime>
-#include <stdlib.h>
-#include <stdio.h>  
+
 
 
 namespace Scrut

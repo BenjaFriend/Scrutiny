@@ -19,8 +19,7 @@ HttpSocket::HttpSocket( const char* aHostURL, const char* aHostPort )
         return;
     }
 
-    LOG_STR( "Hello world!" )
-    //LOG_PARM( "Hello world! %d\n", 10 )
+    DEBUG_PRINT("Test method boi %s : %d", "Hello?", 2 )
 
     InitHeaders();
 

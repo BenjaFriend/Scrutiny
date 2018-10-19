@@ -8,7 +8,6 @@
 
 #if defined(_WIN32) || defined(_WIN64)
 
-#include <assert.h>		// assert macro
 #include <WinSock2.h>	// WinSock
 #include <Ws2tcpip.h>
 
@@ -74,9 +73,11 @@ namespace Scrut
 
     private:
 
+
         /// <summary>
         /// Connect the socket to the Elasticsearch instance
         /// </summary>
+        /// <param name="aSoc">The socket to connect</param>
         /// <returns>The result of creating the socket</returns>
         const int ConnectSocket( SOCKET& aSoc );
 
