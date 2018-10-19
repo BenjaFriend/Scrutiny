@@ -19,6 +19,9 @@ HttpSocket::HttpSocket( const char* aHostURL, const char* aHostPort )
         return;
     }
 
+    LOG_STR( "Hello world!" )
+    //LOG_PARM( "Hello world! %d\n", 10 )
+
     InitHeaders();
 
     ConnectSocket( SendSocket );
