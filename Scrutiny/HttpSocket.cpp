@@ -41,7 +41,10 @@ HttpSocket::~HttpSocket()
     // Wait for the receive thread to be done
     isDone = true;
     RecieveDataCondition.notify_all();
-    Recieve_Thread.join();
+    /*if ( Recieve_Thread.joinable() )
+    {
+        Recieve_Thread.join();
+    }*/
 }
 
 const int HttpSocket::ConnectSocket( SOCKET& aSoc )
@@ -142,22 +145,18 @@ const int HttpSocket::SendRequest( const char* aMethod, const char* aIndexParam,
 
     int iResult = 0;
 
-#if defined(DEBUG) | defined(_DEBUG)
-    printf( "\t\n========= REQUEST SENT\n\n%s \t\n========= End request send\n\n", Request );
-#endif // DEBUG
+    DEBUG_PRINT( "\t\n========= REQUEST SENT\n\n%s \t\n========= End request send\n\n", Request );
 
     // Send an initial buffer
     iResult = send( SendSocket, Request, (int) strlen( Request ), 0 );
     if ( iResult == SOCKET_ERROR )
     {
-        printf( "send failed: %d\n", WSAGetLastError() );
+        DEBUG_PRINT( "send failed: %d\n", WSAGetLastError() );
         Disconnect();
         return 1;
     }
 
-#if defined(DEBUG) | defined(_DEBUG)
-    printf( "\t\t ** Bytes Sent: %ld\n", iResult );
-#endif // DEBUG
+    DEBUG_PRINT( "\t\t ** Bytes Sent: %ld\n", iResult );
 
     // Let the recv thread know that we want to listen!
     RecieveDataCondition.notify_one();
@@ -166,7 +165,7 @@ const int HttpSocket::SendRequest( const char* aMethod, const char* aIndexParam,
     // just sending analytics. This will be a lot more preform ant than 
     // waiting for the response 
 
-    RecvData();
+    //RecvData();
 
     return iResult;
 }
@@ -192,16 +191,14 @@ const int Scrut::HttpSocket::RecvData()
 
     } while ( iResult > 0 );	// While we are getting a response from the server
 
-#if defined(DEBUG) | defined(_DEBUG)
-    printf("\n\t\t ** Bytes Received: %d\n\n", BytesRecieved);
-#endif
+    DEBUG_PRINT("\n\t\t ** Bytes Received: %d\n\n", BytesRecieved);
 
     // Add a null terminator to the end of the data we received
     //RecieveBuffer[ BytesRecieved ] = 0;
 
-#if defined(DEBUG) | defined(_DEBUG)
-    printf("\n============== Server Response:\n\n%s\n\n=============== End Server Response\n\n",  RecieveBuffer);
-#endif
+    DEBUG_PRINT("\n============== Server Response:\n\n%s\n\n=============== End Server Response\n\n",  RecieveBuffer);
+
+
     return iResult;
 }
 
@@ -243,6 +240,7 @@ void Scrut::HttpSocket::RecieveThread()
         // Make sure that we don't need to be done now!
         if ( isDone ) return;
 
+        // Recive data here
     }
 
 }

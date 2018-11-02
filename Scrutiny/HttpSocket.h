@@ -1,5 +1,6 @@
 #pragma once
 
+#include "stdafx.h"
 #include <string>		// Use strings until we have a minimum viable product
 #include <thread>       // std::thread
 #include <mutex>        // std::mutex
@@ -124,7 +125,7 @@ namespace Scrut
         /// </summary>
         void RecieveThread();
 
-        std::thread Recieve_Thread;
+        //std::thread Recieve_Thread;
 
         /// <summary>
         /// A mutex determining if the receive is ready
