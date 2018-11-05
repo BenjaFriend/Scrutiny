@@ -10,15 +10,15 @@ namespace CSharp_Scrutiny_Testing
     class Program
     {
 
-        [DllImport("Scrutiny")]
+        [DllImport("Scrutiny.dll")]
         public static extern IntPtr CreateScrutiny(string aServerAddress, string aServerPort);
 
-        [DllImport("Scrutiny")]
+        [DllImport("Scrutiny.dll")]
         public static extern void DestroyScrutiny(IntPtr obj);
 
 
         // Straight From the c++ Dll (unmanaged)
-        [DllImport("Scrutiny")]
+        [DllImport("Scrutiny.dll")]
         public static extern int TestRequest(IntPtr obj);
 
         /// <summary>

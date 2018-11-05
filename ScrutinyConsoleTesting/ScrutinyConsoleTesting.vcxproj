@@ -109,6 +109,7 @@
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y /d "$(SolutionDir)Scrutiny\_Output\$(Platform)\$(Configuration)\Scrutiny.dll" "$(OutDir)"</Command>
+      <Message>Copying Scrutiny.dll to the executeables folder...</Message>
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>
@@ -134,6 +135,7 @@
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y /d "$(SolutionDir)Scrutiny\_Output\$(Platform)\$(Configuration)\Scrutiny.dll" "$(OutDir)"</Command>
+      <Message>Copying Scrutiny.dll to the executeables folder...</Message>
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>
@@ -163,6 +165,7 @@
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y /d "$(SolutionDir)Scrutiny\_Output\$(Platform)\$(Configuration)\Scrutiny.dll" "$(OutDir)"</Command>
+      <Message>Copying Scrutiny.dll to the executeables folder...</Message>
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>
@@ -192,6 +195,7 @@
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y /d "$(SolutionDir)Scrutiny\_Output\$(Platform)\$(Configuration)\Scrutiny.dll" "$(OutDir)"</Command>
+      <Message>Copying Scrutiny.dll to the executeables folder...</Message>
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>
