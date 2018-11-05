@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ScrutinyConsoleTesting", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp_Scrutiny_Testing", "CSharp_Scrutiny_Testing\CSharp_Scrutiny_Testing.csproj", "{6CA44AC6-26D4-4DF7-8865-30982667EE83}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test Projects", "Test Projects", "{BD8CAD6B-73BE-40F0-BC80-F4BD5E84B246}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,6 +56,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DC313C87-523A-450D-A948-DF33C59537A0} = {BD8CAD6B-73BE-40F0-BC80-F4BD5E84B246}
+		{6CA44AC6-26D4-4DF7-8865-30982667EE83} = {BD8CAD6B-73BE-40F0-BC80-F4BD5E84B246}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D0A7DC2E-E9E9-497F-838C-6611C4CA8383}

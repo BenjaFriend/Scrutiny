@@ -165,7 +165,8 @@ const int HttpSocket::SendRequest( const char* aMethod, const char* aIndexParam,
     // just sending analytics. This will be a lot more preform ant than 
     // waiting for the response 
 
-    RecvData();
+    // #Bug
+    //RecvData();
 
     return iResult;
 }

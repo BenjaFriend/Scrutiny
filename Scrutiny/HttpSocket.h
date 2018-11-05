@@ -7,6 +7,7 @@
 #include <condition_variable>   // std::conditional_var
 #include <atomic>       // std::atomic
 
+// #MakeCrossPlatform
 #if defined(_WIN32) || defined(_WIN64)
 
 #include <WinSock2.h>	// WinSock

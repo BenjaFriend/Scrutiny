@@ -6,7 +6,7 @@
 /// </summary>
 /// <author>Ben Hoffman</author>
 
-
+// #MakeCrossPlatform
 #ifdef SCRUTINY_EXPORTS
 #define SCRUTINY_API __declspec(dllexport) 
 #else
