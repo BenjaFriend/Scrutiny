@@ -122,7 +122,7 @@ const int HttpSocket::SendRequest( const char* aMethod, const char* aIndexParam,
 {
     assert( strcmp( aMethod, "GET" ) || strcmp( aMethod, "POST" ) || strcmp( aMethod, "PUT" ) || strcmp( aMethod, "XDELETE" ) );
 
-    ConnectSocket( SendSocket );
+    //ConnectSocket( SendSocket );
 
     char Request[ MAX_REQUEST_LEN ];
     char* reqPtr = Request;
