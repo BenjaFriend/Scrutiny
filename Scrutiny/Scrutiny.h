@@ -25,6 +25,9 @@ namespace Scrut
 	/// <author>Ben Hoffman</author>
 	class Scrutiny
 	{
+        // A function to allow generic reporting of data by letting the user 
+        // specify how the data will be put into a string format
+        typedef void ( *ReporterFunction_t )( void* aValue, char* aOUT_CHAR );
 
 	public:
 
@@ -73,6 +76,37 @@ namespace Scrut
         /// <param name="aKey">The name of the key in Elasticsearch</param>
         /// <param name="aVal">character value</param>
         void ReportCharacter( const char* aKey, const char* aVal );
+
+        /// <summary>
+        /// Report a generic type given a way to put this type into a char* 
+        /// </summary>
+        /// <param name="aKey">The name of the key in Elasticsearch</param>
+        /// <param name="aVal">The value to report</param>
+        /// <param name="toString_func">A fucntion that will specify how to put this
+        /// type into a char*</param>
+        template <class T>
+        void ReportGeneric(
+            const char* aKey,
+            T* aVal,
+            void ( *toString_func )( char* aBuffer, size_t buf_size, T* aValue )
+        )
+        {
+            assert( aKey != nullptr && aVal != nullptr && toString_func != nullptr );
+
+            strcat_s( CurrentRequest, REQUEST_LEN, ", \"" );
+            strcat_s( CurrentRequest, REQUEST_LEN, aKey );
+            strcat_s( CurrentRequest, REQUEST_LEN, "\": \"" );
+            char buf[ _CVTBUFSIZE ];
+            strcpy_s( buf, _CVTBUFSIZE, "\0" );
+
+
+            toString_func( buf, _CVTBUFSIZE, aVal );
+
+            strcat_s( CurrentRequest, REQUEST_LEN, buf );
+            strcat_s( CurrentRequest, REQUEST_LEN, "\"" );
+
+            printf( "Oh man we are in this thing Key : %s\n", aKey );
+        }
 
 		/// <summary>
 		/// Get information about an index in Elasticsearch 
