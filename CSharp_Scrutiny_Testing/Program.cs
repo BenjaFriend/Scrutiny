@@ -29,7 +29,7 @@ namespace CSharp_Scrutiny_Testing
         static void Main(string[] args)
         {
             // Create scrutiny
-            Scrutiny = CreateScrutiny("127.0.0.1", "9200");
+            Scrutiny = CreateScrutiny("127.0.0.1", "9200");            
 
             Console.WriteLine("Scrutiny : " + Scrutiny);
 

@@ -88,25 +88,23 @@ namespace Scrut
         void ReportGeneric(
             const char* aKey,
             T* aVal,
-            void ( *toString_func )( char* aBuffer, size_t buf_size, T* aValue )
-        )
-        {
-            assert( aKey != nullptr && aVal != nullptr && toString_func != nullptr );
+            void( *toString_func )( char* aBuffer, size_t buf_size, T* aValue )
+        );
 
-            strcat_s( CurrentRequest, REQUEST_LEN, ", \"" );
-            strcat_s( CurrentRequest, REQUEST_LEN, aKey );
-            strcat_s( CurrentRequest, REQUEST_LEN, "\": \"" );
-            char buf[ _CVTBUFSIZE ];
-            strcpy_s( buf, _CVTBUFSIZE, "\0" );
-
-
-            toString_func( buf, _CVTBUFSIZE, aVal );
-
-            strcat_s( CurrentRequest, REQUEST_LEN, buf );
-            strcat_s( CurrentRequest, REQUEST_LEN, "\"" );
-
-            printf( "Oh man we are in this thing Key : %s\n", aKey );
-        }
+        /// <summary>
+        /// Report a generic type given a way to put this type into a char* with member
+        /// functions
+        /// </summary>
+        /// <param name="aKey">The name of the key in Elasticsearch</param>
+        /// <param name="aVal">The value to report</param>
+        /// <param name="toString_func">A fucntion that will specify how to put this
+        /// type into a char*</param>
+        template <class T>
+        void ReportGeneric(
+            const char* aKey,
+            T* aVal,
+            void( T::*toString_func )( char* aBuffer, size_t buf_size, T* aValue )
+        );
 
 		/// <summary>
 		/// Get information about an index in Elasticsearch 
@@ -148,4 +146,49 @@ namespace Scrut
         /** The current request buffer */
         char* CurrentRequest = nullptr;
 	};
+
+
+    ////////////////////////////////////////////////////////////////////
+    // Template class implementations //////////////////////////////////
+
+    template<class T>
+    void Scrutiny::ReportGeneric( 
+        const char * aKey,
+        T * aVal,
+        void( *toString_func )( char *aBuffer, size_t buf_size, T *aValue )
+    )
+    {
+        assert( aKey != nullptr && aVal != nullptr && toString_func != nullptr );
+
+        strcat_s( CurrentRequest, REQUEST_LEN, ", \"" );
+        strcat_s( CurrentRequest, REQUEST_LEN, aKey );
+        strcat_s( CurrentRequest, REQUEST_LEN, "\": \"" );
+        char buf[ _CVTBUFSIZE ];
+        strcpy_s( buf, _CVTBUFSIZE, "\0" );
+
+        toString_func( buf, _CVTBUFSIZE, aVal );
+
+        strcat_s( CurrentRequest, REQUEST_LEN, buf );
+        strcat_s( CurrentRequest, REQUEST_LEN, "\"" );
+    }
+
+    template<class T>
+    void Scrutiny::ReportGeneric( const char* aKey,
+        T* aVal,
+        void( T::*toString_func )( char* aBuffer, size_t buf_size, T* aValue ) 
+    )
+    {
+        assert( aKey != nullptr && aVal != nullptr && toString_func != nullptr );
+
+        strcat_s( CurrentRequest, REQUEST_LEN, ", \"" );
+        strcat_s( CurrentRequest, REQUEST_LEN, aKey );
+        strcat_s( CurrentRequest, REQUEST_LEN, "\": \"" );
+        char buf[ _CVTBUFSIZE ];
+        strcpy_s( buf, _CVTBUFSIZE, "\0" );
+
+        (aVal->*toString_func)( buf, _CVTBUFSIZE, aVal );
+
+        strcat_s( CurrentRequest, REQUEST_LEN, buf );
+        strcat_s( CurrentRequest, REQUEST_LEN, "\"" );
+    }
 }
