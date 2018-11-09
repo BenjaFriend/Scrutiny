@@ -24,7 +24,6 @@ HttpSocket::HttpSocket( const char* aHostURL, const char* aHostPort )
     InitHeaders();
 
     ConnectSocket( SendSocket );
-    ConnectSocket( RecieveSocket );
 
     isDone = false;
 
@@ -174,7 +173,7 @@ const int HttpSocket::SendRequest( const char* aMethod, const char* aIndexParam,
 const int Scrut::HttpSocket::RecvData()
 {
     int iResult = 0;
-    ConnectSocket( RecieveSocket );
+    ConnectSocket( SendSocket );
 
     // Receive data until the server closes the connection
     int BytesRecieved = 0;
@@ -185,7 +184,7 @@ const int Scrut::HttpSocket::RecvData()
     do
     {
         // receive data from the server's response
-        iResult = recv( RecieveSocket, RecieveBuffer, MAX_RECV_BUF_LEN, MSG_WAITALL );
+        iResult = recv( SendSocket, RecieveBuffer, MAX_RECV_BUF_LEN, MSG_WAITALL );
 
         // Keep track of how much data we are receive so that we can add a null terminator
         BytesRecieved += iResult;
@@ -210,11 +209,6 @@ void HttpSocket::Disconnect()
         closesocket( SendSocket );
     }
 
-    if ( RecieveSocket >= 0 )
-    {
-        closesocket( RecieveSocket );
-    }
-
     WSACleanup();
 }
 
@@ -227,24 +221,6 @@ char * Scrut::HttpSocket::StrCat_NoCheck( char * aDest, const char * aSrc )
     return --aDest;
 }
 
-void Scrut::HttpSocket::RecieveThread()
-{
-    printf( "Enter the Receive thread!\n" );
-
-    std::unique_lock<std::mutex> workerLock( RecvDataMutex );
-
-    while ( true )
-    {
-        // Wait for a webRequest to happen to become available
-        RecieveDataCondition.wait( workerLock );
-
-        // Make sure that we don't need to be done now!
-        if ( isDone ) return;
-
-        // Recive data here
-    }
-
-}
 
 /////////////////////////////////////////////////////////////////
 // Accessors

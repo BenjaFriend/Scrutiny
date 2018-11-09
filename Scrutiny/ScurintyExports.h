@@ -8,10 +8,20 @@
 
 // #MakeCrossPlatform
 #ifdef SCRUTINY_EXPORTS
+
+#if defined(_WIN32) || defined(_WIN64)
+
 #define SCRUTINY_API __declspec(dllexport) 
 #else
 #define SCRUTINY_API __declspec(dllimport) 
-#endif
+
+#el //defined(_WIN32) || defined(_WIN64)
+
+#define SCRUTINY_API 
+
+#endif  // Not windows
+
+#endif  // SCRUTINY_EXPORTS
 
 
 #include "Scrutiny.h"
@@ -37,5 +47,24 @@ extern "C"
 
     SCRUTINY_API void ReportFloat( Scrut::Scrutiny* Impl, const char* aKey, float aValue );
     SCRUTINY_API void ReportCharacter( Scrut::Scrutiny* Impl, const char* aKey, const char* aValue );
+
+    /*
+    template <class T> SCRUTINY_API void ReportGeneric(
+        Scrut::Scrutiny* Impl,
+        const char* aKey,
+        T* aVal,
+        void( *toString_func )( char* aBuffer, size_t buf_size, T* aValue ) )
+    {
+        Impl->ReportGeneric( aKey, aVal, toString_func );
+    }
+
+    template void ReportGeneric<int>( 
+        Scrut::Scrutiny* Impl,
+        const char* aKey,
+        int* aVal,
+        void( *toString_func )( char* aBuffer, size_t buf_size, int* aValue ) 
+        );
+        */
+
 
 }

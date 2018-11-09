@@ -25,9 +25,6 @@ namespace Scrut
 	/// <author>Ben Hoffman</author>
 	class Scrutiny
 	{
-        // A function to allow generic reporting of data by letting the user 
-        // specify how the data will be put into a string format
-        typedef void ( *ReporterFunction_t )( void* aValue, char* aOUT_CHAR );
 
 	public:
 

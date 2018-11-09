@@ -7,6 +7,22 @@ using System.Runtime.InteropServices;
 namespace CSharp_Scrutiny_Testing
 {
 
+    /// <summary>
+    /// A test class that holds some fake vector info
+    /// </summary>
+    class Vector
+    {
+        public float x;
+        public float y;
+        public float z;
+
+        public override string ToString()
+        {
+            return string.Format( "Vector ( {0}, {1}, {2} )", x, y, z);
+        }
+    }
+
+
     class Program
     {
 
@@ -32,6 +48,13 @@ namespace CSharp_Scrutiny_Testing
             Scrutiny = CreateScrutiny("127.0.0.1", "9200");            
 
             Console.WriteLine("Scrutiny : " + Scrutiny);
+
+            Vector testVec = new Vector();
+            testVec.x = 1.5f;
+            testVec.y = 2.5f;
+            testVec.z = 3.5f;
+
+            Console.WriteLine( "Test vec: " + testVec.ToString() );
 
             int r = TestRequest(Scrutiny);
 

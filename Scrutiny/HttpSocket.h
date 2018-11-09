@@ -75,7 +75,6 @@ namespace Scrut
 
     private:
 
-
         /// <summary>
         /// Connect the socket to the Elasticsearch instance
         /// </summary>
@@ -91,9 +90,6 @@ namespace Scrut
 
         /** The active socket that will send data to ELK*/
         SOCKET SendSocket = INVALID_SOCKET;
-
-        /** The active socket that will receive data from ELK */
-        SOCKET RecieveSocket = INVALID_SOCKET;
 
         /* Close socket and cleanup WSA if necessary */
         void Disconnect();
@@ -118,15 +114,7 @@ namespace Scrut
         /// <param name="aDest">The destination char *</param>
         /// <param name="aSrc">Soruce char* to get the data from</param>
         /// <returns>The new end position of the destination char*</returns>
-        char* StrCat_NoCheck( char* aDest, const char* aSrc );
-
-        /// <summary>
-        /// Function used to determine if we should be listening for data from 
-        /// the server
-        /// </summary>
-        void RecieveThread();
-
-        //std::thread Recieve_Thread;
+        static char* StrCat_NoCheck( char* aDest, const char* aSrc );
 
         /// <summary>
         /// A mutex determining if the receive is ready
