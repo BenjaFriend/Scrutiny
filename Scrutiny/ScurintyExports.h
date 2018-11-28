@@ -9,17 +9,9 @@
 // #MakeCrossPlatform
 #ifdef SCRUTINY_EXPORTS
 
-#if defined(_WIN32) || defined(_WIN64)
-
 #define SCRUTINY_API __declspec(dllexport) 
 #else
 #define SCRUTINY_API __declspec(dllimport) 
-
-#el //defined(_WIN32) || defined(_WIN64)
-
-#define SCRUTINY_API 
-
-#endif  // Not windows
 
 #endif  // SCRUTINY_EXPORTS
 
