@@ -4,9 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
 
-
-
-
 namespace CSharp_Scrutiny_Testing
 {
 
@@ -24,16 +21,16 @@ namespace CSharp_Scrutiny_Testing
             return string.Format("Vector ( {0}, {1}, {2} )", x, y, z);
         }
 
-        public static string CustomVectorString(Vector value)
+        public static string CustomVectorString(IntPtr value)
         {
-            return value.ToString();
+            GCHandle gch = GCHandle.FromIntPtr(value);
+            Vector vec = (Vector)gch.Target;
+            return vec.ToString();
         }
     }
 
-    class Program
+    class LibWrapper
     {
-        #region DLL Function Imports
-
         [DllImport("Scrutiny.dll")]
         public static extern IntPtr CreateScrutiny(string aServerAddress, string aServerPort);
 
@@ -56,20 +53,21 @@ namespace CSharp_Scrutiny_Testing
         public static extern void ReportCharacter(IntPtr Impl, string key, string aToStrFuncPtr);
 
         [DllImport("Scrutiny.dll")]
-        public static extern void ReportCustom(IntPtr Impl, string key, IntPtr aToStrFuncPtr);
+        public static extern void ReportCustom(IntPtr Impl, string key, IntPtr aToStrFuncPtr, IntPtr aObject);
 
+    }
+
+    class Program
+    {
         /** A pointer to the actual object implementation, because of Unity */
         private static IntPtr Scrutiny;
 
-        #endregion
-
-
-        public delegate string CustomToStringDelegate(Vector value);
+        public delegate string CustomToStringDelegate(IntPtr value);
 
         static void Main(string[] args)
         {
             // Create scrutiny
-            Scrutiny = CreateScrutiny("127.0.0.1", "9200");
+            Scrutiny = LibWrapper.CreateScrutiny("127.0.0.1", "9200");
 
             Console.WriteLine("Scrutiny : " + Scrutiny);
 
@@ -81,20 +79,28 @@ namespace CSharp_Scrutiny_Testing
             // Need to keep the delegate around so it doesnt get eaten by the GC
             CustomToStringDelegate myCustomToString = new CustomToStringDelegate(Vector.CustomVectorString);
 
-            ReportCustom(
+            LibWrapper.StartReport(Scrutiny);
+            LibWrapper.ReportFloat(Scrutiny, "float_cs", 42.75f);
+
+            GCHandle gch = GCHandle.Alloc(testVec);
+
+            LibWrapper.ReportCustom(
                 Scrutiny,
                 "C# Delegate",
-                Marshal.GetFunctionPointerForDelegate(myCustomToString)
+                Marshal.GetFunctionPointerForDelegate(myCustomToString),
+                GCHandle.ToIntPtr(gch)
                 );
 
+            LibWrapper.SendReport(Scrutiny);
 
             Console.WriteLine("Test vector: " + testVec.ToString());
 
-            int r = TestRequest(Scrutiny);
+            int r = LibWrapper.TestRequest(Scrutiny);
 
             Console.WriteLine("From C++ Unmanaged Dll: " + r.ToString());
 
-            Console.WriteLine("Fniished reports!");
+            Console.WriteLine("Finished reports!");
+            gch.Free();
         }
   
     }

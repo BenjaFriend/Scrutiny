@@ -17,33 +17,33 @@ namespace Scrut
 #define REQUEST_LEN 1024
 #define TIME_BUF_SIZE 64
 
-	/// <summary>
-	/// Provide functionality for the user make simple calls to Elasticsearch.
-	/// Have the main configuration for the indexing patterns of ELK, what data types
-	/// to send, etc.
-	/// </summary>
-	/// <author>Ben Hoffman</author>
-	class Scrutiny
-	{
+    /// <summary>
+    /// Provide functionality for the user make simple calls to Elasticsearch.
+    /// Have the main configuration for the indexing patterns of ELK, what data types
+    /// to send, etc.
+    /// </summary>
+    /// <author>Ben Hoffman</author>
+    class Scrutiny
+    {
 
-	public:
+    public:
 
-		/// <summary>
-		/// Constructor for a specific server and port 
-		/// </summary>
-		/// <param name="aServerAddress">The address of the ELK server to connect with</param>
-		/// <param name="aServerPort">The port of the ELK serve to connect with</param>
-		Scrutiny( const char* aServerAddress, const char* aServerPort );
+        /// <summary>
+        /// Constructor for a specific server and port 
+        /// </summary>
+        /// <param name="aServerAddress">The address of the ELK server to connect with</param>
+        /// <param name="aServerPort">The port of the ELK serve to connect with</param>
+        Scrutiny( const char* aServerAddress, const char* aServerPort );
 
-		/// <summary>
-		/// Default destructor; Clean u Sockets
-		/// </summary>
-		~Scrutiny();
+        /// <summary>
+        /// Default destructor; Clean u Sockets
+        /// </summary>
+        ~Scrutiny();
 
-		/// <summary>
-		/// Send a test web HTTP socket to to the ELK stack
-		/// </summary>
-		/// <returns>Status of the web request.</returns>
+        /// <summary>
+        /// Send a test web HTTP socket to to the ELK stack
+        /// </summary>
+        /// <returns>Status of the web request.</returns>
         const int TestRequest();
 
         /// <summary>
@@ -74,8 +74,14 @@ namespace Scrut
         /// <param name="aVal">character value</param>
         void ReportCharacter( const char* aKey, const char* aVal );
 
-        
-        void ReportCustom( const char* aKey, CustomToStringDelegate customFunc );
+        /// <summary>
+        /// Custom reporting method that will allow you to pass in a function
+        /// that returns a char* and add that result to the buffer. 
+        /// </summary>
+        /// <param name="aKey">Key for the ELK data</param>
+        /// <param name="customFunc">ToString function for the given object type</param>
+        /// <param name="funcArgs">Function arguments here for your toString</param>
+        void ReportCustom( const char* aKey, CustomToStringDelegate customFunc, void* funcArgs );
 
         /// <summary>
         /// Report a generic type given a way to put this type into a char* 
@@ -106,19 +112,19 @@ namespace Scrut
             void( T::*toString_func )( char* aBuffer, size_t buf_size, T* aValue )
         );
 
-		/// <summary>
-		/// Get information about an index in Elasticsearch 
-		/// </summary>
-		/// <param name="aIndex">The index you would like to receive information about</param>
-		/// <returns>Status of the web request</returns>
-		const int GetIndex( const char* aIndex ) const;
+        /// <summary>
+        /// Get information about an index in Elasticsearch 
+        /// </summary>
+        /// <param name="aIndex">The index you would like to receive information about</param>
+        /// <returns>Status of the web request</returns>
+        const int GetIndex( const char* aIndex ) const;
 
-		/// <summary>
-		/// The Elasticsearch index to delete
-		/// </summary>
-		/// <param name="aIndex">Status of the request to the server</param>
-		/// <returns>Status of the web request</returns>
-		const int DeleteIndex( const char* aIndex ) const;
+        /// <summary>
+        /// The Elasticsearch index to delete
+        /// </summary>
+        /// <param name="aIndex">Status of the request to the server</param>
+        /// <returns>Status of the web request</returns>
+        const int DeleteIndex( const char* aIndex ) const;
 
         /// <summary>
         /// Get the current time format that is proper for Elasticsearch
@@ -135,7 +141,7 @@ namespace Scrut
         /** Return the current request that is being built, or last sent. */
         const char* GetCurrentRequest() const;
 
-	private:
+    private:
 
         /// <summary>
         /// Format this key properly for a pair in ELK
@@ -143,22 +149,22 @@ namespace Scrut
         /// <param name="aKey">the key to put</param>
         void SetKey( const char* aKey );
 
-		/** The socket we will use to communicate with the ELK stack */
-		HttpSocket * ELK_Socket = nullptr;
+        /** The socket we will use to communicate with the ELK stack */
+        HttpSocket * ELK_Socket = nullptr;
 
-		/** The index that the user would like to report to */
-		char* CurrentIndex = nullptr;
+        /** The index that the user would like to report to */
+        char* CurrentIndex = nullptr;
 
         /** The current request buffer */
         char* CurrentRequest = nullptr;
-	};
+    };
 
 
     ////////////////////////////////////////////////////////////////////
     // Template class implementations //////////////////////////////////
 
     template<class T>
-    void Scrutiny::ReportGeneric( 
+    void Scrutiny::ReportGeneric(
         const char * aKey,
         T * aVal,
         void( *toString_func )( char *aBuffer, size_t buf_size, T *aValue )
@@ -181,7 +187,7 @@ namespace Scrut
     template<class T>
     void Scrutiny::ReportGeneric( const char* aKey,
         T* aVal,
-        void( T::*toString_func )( char* aBuffer, size_t buf_size, T* aValue ) 
+        void( T::*toString_func )( char* aBuffer, size_t buf_size, T* aValue )
     )
     {
         assert( aKey != nullptr && aVal != nullptr && toString_func != nullptr );
@@ -192,7 +198,7 @@ namespace Scrut
         char buf[ _CVTBUFSIZE ];
         strcpy_s( buf, _CVTBUFSIZE, "\0" );
 
-        (aVal->*toString_func)( buf, _CVTBUFSIZE, aVal );
+        ( aVal->*toString_func )( buf, _CVTBUFSIZE, aVal );
 
         strcat_s( CurrentRequest, REQUEST_LEN, buf );
         strcat_s( CurrentRequest, REQUEST_LEN, "\"" );
