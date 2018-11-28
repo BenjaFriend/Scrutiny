@@ -59,4 +59,9 @@ extern "C"
         Impl->ReportCharacter( aKey, aValue );
     }
 
+    void ReportCustom( Scrut::Scrutiny* Impl, const char* aKey, CustomToStringDelegate aToStringFunc )
+    {
+        Impl->ReportCustom( aKey, aToStringFunc );
+    }
+
 }

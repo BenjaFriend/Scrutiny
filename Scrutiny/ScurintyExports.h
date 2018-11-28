@@ -39,6 +39,7 @@ extern "C"
 
     SCRUTINY_API void ReportFloat( Scrut::Scrutiny* Impl, const char* aKey, float aValue );
     SCRUTINY_API void ReportCharacter( Scrut::Scrutiny* Impl, const char* aKey, const char* aValue );
+    SCRUTINY_API void ReportCustom( Scrut::Scrutiny* Impl, const char* aKey, CustomToStringDelegate aToStringFunc );
 
     /*
     template <class T> SCRUTINY_API void ReportGeneric(

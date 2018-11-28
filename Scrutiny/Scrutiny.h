@@ -74,6 +74,9 @@ namespace Scrut
         /// <param name="aVal">character value</param>
         void ReportCharacter( const char* aKey, const char* aVal );
 
+        
+        void ReportCustom( const char* aKey, CustomToStringDelegate customFunc );
+
         /// <summary>
         /// Report a generic type given a way to put this type into a char* 
         /// </summary>
@@ -133,6 +136,12 @@ namespace Scrut
         const char* GetCurrentRequest() const;
 
 	private:
+
+        /// <summary>
+        /// Format this key properly for a pair in ELK
+        /// </summary>
+        /// <param name="aKey">the key to put</param>
+        void SetKey( const char* aKey );
 
 		/** The socket we will use to communicate with the ELK stack */
 		HttpSocket * ELK_Socket = nullptr;
