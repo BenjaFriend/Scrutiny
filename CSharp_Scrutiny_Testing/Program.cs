@@ -33,50 +33,64 @@ namespace CSharp_Scrutiny_Testing
 
     class Program
     {
-        /** A pointer to the actual object implementation, because of Unity */
-        //private static IntPtr ScrutinyInstance;
-
-        public delegate string CustomToStringDelegate(IntPtr value);
 
         static void Main(string[] args)
         {
-            // Create scrutiny
-            //ScrutinyInstance = Scrutiny.LibWrapper.CreateScrutiny("127.0.0.1", "9200");
-            Scrutiny.Init("127.0.0.1", "9200");
+            // Libary initalizeation -------------------------
+            // Create scrutiny, must be done before using the library
+            Scrutiny.InitLib("127.0.0.1", "9200");
 
-            //Console.WriteLine("Scrutiny : " + ScrutinyInstance);
+            // Test Connection -------------------------------------
+            // Test request for making sure that you can communicate to your library
+            int r = Scrutiny.TestRequest();
 
+            // Reporting basic types --------------------------
+            // To start generating an Elasticsearch report, call start report
+            Scrutiny.StartReport();
+
+            // Report and data that you want send to your server given a key and value
+            Scrutiny.ReportCharacter("TestKey", "You can report string and other basic types like this");
+            Scrutiny.ReportFloat("TestInt", 15);
+
+            // When you have all the data in the report that you want, send it! 
+            Scrutiny.SendReport();
+
+
+            // Reporting non-basic types --------------------------
             Vector testVec = new Vector();
             testVec.x = 1.5f;
             testVec.y = 2.5f;
             testVec.z = 3.5f;
 
             // Need to keep the delegate around so it doesnt get eaten by the GC
-            CustomToStringDelegate myCustomToString = new CustomToStringDelegate(Vector.CustomVectorString);
+            Scrutiny.CustomToStringDelegate myCustomToString = new Scrutiny.CustomToStringDelegate(Vector.CustomVectorString);
 
             Scrutiny.StartReport();
-            Scrutiny.ReportFloat("float_cs", 42.75f);
 
+            // Get a pointer/ handle to your object to report
             GCHandle gch = GCHandle.Alloc(testVec);
 
-            Scrutiny.ReportCustom(                
+            // Report the custom object
+            Scrutiny.ReportCustom(  
+                // Key, as normal
                 "C# Delegate",
-                Marshal.GetFunctionPointerForDelegate(myCustomToString),
-                GCHandle.ToIntPtr(gch)
+                // Basically gets a function pointer that is compatible with C/C++
+                Marshal.GetFunctionPointerForDelegate(myCustomToString),    
+                // Pointer to your object to report
+                GCHandle.ToIntPtr(gch) 
                 );
 
-            Scrutiny.ReportCharacter("Language", "C#");
+            // Of course, you can always write custom ToString methods to objects 
+            // and use ReportCharacter instead. 
 
+            // Finish report
             Scrutiny.SendReport();
 
-            Console.WriteLine("Test vector: " + testVec.ToString());
+            gch.Free(); // Free your pointers that you have created
 
-            int r = Scrutiny.TestRequest();
-
-            Console.WriteLine("From C++ Unmanaged Dll: " + r.ToString());
-
-            Console.WriteLine("Finished reports!");
-            gch.Free();
+            // Library cleanup -------------------------
+            // Release the library to clean up memory that is used
+            Scrutiny.Release();
         }
   
     }

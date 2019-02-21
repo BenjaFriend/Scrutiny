@@ -18,46 +18,27 @@
 
 #include "Scrutiny.h"
 
+Scrut::Scrutiny* Instance = nullptr;
+
 extern "C"
 {
- 
-    SCRUTINY_API Scrut::Scrutiny* CreateScrutiny( const char* aServerAddress, const char* aServerPort );
+    SCRUTINY_API void InitLib( const char* aServerAddress, const char* aServerPort );
 
-    SCRUTINY_API void DestroyScrutiny( Scrut::Scrutiny* Impl );
+    SCRUTINY_API void Release();
 
-    SCRUTINY_API const int TestRequest( Scrut::Scrutiny* Impl );
+    SCRUTINY_API const int TestRequest();
 
-    SCRUTINY_API const int GetIndex( Scrut::Scrutiny* Impl, const char* aIndex );
+    SCRUTINY_API const int GetIndex( const char* aIndex );
 
-    SCRUTINY_API const int DeleteIndex( Scrut::Scrutiny* Impl, const char* aIndex );
+    SCRUTINY_API const int DeleteIndex( const char* aIndex );
 
     ////////////////////////////////////////////
     // Reporting methods
 
-    SCRUTINY_API void StartReport( Scrut::Scrutiny* Impl );
-    SCRUTINY_API const int SendReport( Scrut::Scrutiny* Impl );
+    SCRUTINY_API void StartReport();
+    SCRUTINY_API const int SendReport();
 
-    SCRUTINY_API void ReportFloat( Scrut::Scrutiny* Impl, const char* aKey, float aValue );
-    SCRUTINY_API void ReportCharacter( Scrut::Scrutiny* Impl, const char* aKey, const char* aValue );
-    SCRUTINY_API void ReportCustom( Scrut::Scrutiny* Impl, const char* aKey, CustomToStringDelegate aToStringFunc, void* funcArgs );
-
-    /*
-    template <class T> SCRUTINY_API void ReportGeneric(
-        Scrut::Scrutiny* Impl,
-        const char* aKey,
-        T* aVal,
-        void( *toString_func )( char* aBuffer, size_t buf_size, T* aValue ) )
-    {
-        Impl->ReportGeneric( aKey, aVal, toString_func );
-    }
-
-    template void ReportGeneric<int>( 
-        Scrut::Scrutiny* Impl,
-        const char* aKey,
-        int* aVal,
-        void( *toString_func )( char* aBuffer, size_t buf_size, int* aValue ) 
-        );
-        */
-
-
+    SCRUTINY_API void ReportFloat( const char* aKey, float aValue );
+    SCRUTINY_API void ReportCharacter( const char* aKey, const char* aValue );
+    SCRUTINY_API void ReportCustom( const char* aKey, CustomToStringDelegate aToStringFunc, void* funcArgs );
 }

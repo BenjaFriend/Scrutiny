@@ -1,5 +1,5 @@
 /// <summary>
-/// Implementation of all exported functions. This has to
+/// implementation of all exported functions. This has to
 /// be done with a pointer implementation because of  
 /// limitations with Unity. 
 /// </summary>
@@ -10,58 +10,78 @@
 
 extern "C"
 {
+    void InitLib( const char * aServerAddress, const char * aServerPort )
+    {
+        assert( Instance == nullptr );
 
-	Scrut::Scrutiny * CreateScrutiny(const char * aServerAddress, const char * aServerPort)
-	{
-		return new Scrut::Scrutiny(aServerAddress, aServerPort);
-	}
+        Instance = new Scrut::Scrutiny( aServerAddress, aServerPort );
+    }
 
-	void DestroyScrutiny(Scrut::Scrutiny* Impl)
-	{
-		delete Impl;
-	}
+    void Release()
+    {
+        if ( Instance != nullptr )
+        {
+            delete Instance;
+        }
+    }
 
-	int const TestRequest(Scrut::Scrutiny* Impl)
-	{
-		return Impl->TestRequest();
-	}
+    int const TestRequest()
+    {
+        assert( Instance != nullptr );
 
-	int const GetIndex(Scrut::Scrutiny* Impl, const char* aIndex)
-	{
-		return Impl->GetIndex(aIndex);
-	}
+        return Instance->TestRequest();
+    }
 
-	int const DeleteIndex(Scrut::Scrutiny * Impl, const char * aIndex)
-	{
-		return Impl->DeleteIndex(aIndex);
-	}
+    int const GetIndex( const char* aIndex )
+    {
+        assert( Instance != nullptr );
+
+        return Instance->GetIndex( aIndex );
+    }
+
+    int const DeleteIndex( const char * aIndex )
+    {
+        assert( Instance != nullptr );
+
+        return Instance->DeleteIndex( aIndex );
+    }
 
     ////////////////////////////////////////////
     // Reporting methods
 
-    void StartReport( Scrut::Scrutiny* Impl )
+    void StartReport()
     {
-        return Impl->StartReport();
+        assert( Instance != nullptr );
+
+        return Instance->StartReport();
     }
 
-    const int SendReport( Scrut::Scrutiny* Impl )
+    const int SendReport()
     {
-        return Impl->SendReport();
+        assert( Instance != nullptr );
+
+        return Instance->SendReport();
     }
 
-    void ReportFloat( Scrut::Scrutiny* Impl, const char* aKey, float aValue )
+    void ReportFloat( const char* aKey, float aValue )
     {
-        Impl->ReportFloat( aKey, aValue );
+        assert( Instance != nullptr );
+
+        Instance->ReportFloat( aKey, aValue );
     }
 
-    void ReportCharacter( Scrut::Scrutiny* Impl, const char* aKey, const char* aValue )
+    void ReportCharacter( const char* aKey, const char* aValue )
     {
-        Impl->ReportCharacter( aKey, aValue );
+        assert( Instance != nullptr );
+
+        Instance->ReportCharacter( aKey, aValue );
     }
 
-    void ReportCustom( Scrut::Scrutiny* Impl, const char* aKey, CustomToStringDelegate aToStringFunc, void* funcArgs )
+    void ReportCustom( const char* aKey, CustomToStringDelegate aToStringFunc, void* funcArgs )
     {
-        Impl->ReportCustom( aKey, aToStringFunc, funcArgs );
+        assert( Instance != nullptr );
+
+        Instance->ReportCustom( aKey, aToStringFunc, funcArgs );
     }
 
 }
